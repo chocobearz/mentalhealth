@@ -9,3 +9,5 @@ happyData['id'] = happyData['id'].apply(lambda x: "{}{}".format(x, 'happy'))
 allData = sadData.append(happyData)
 
 allData = allData.dropna()
+
+allData.to_csv('cleanRedditPosts.csv')
