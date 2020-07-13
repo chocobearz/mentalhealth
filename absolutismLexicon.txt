@@ -1,4 +1,4 @@
-absolutely  -1
+absolute  -1
 absolutely  -1
 always  -1
 complete   -1
