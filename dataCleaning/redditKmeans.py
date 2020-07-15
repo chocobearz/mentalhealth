@@ -23,8 +23,14 @@ csvPath = args.csvPath
 data = pd.read_csv(csvPath)
 
 #test for data without the extreme values
-moderateData = data[(data['afinnScore'] > -20) & (data['afinnScore'] < 20)]
+#moderateData = data[(data['afinnScore'] > -20) & (data['afinnScore'] < 20)]
+moderateData = data
 scores = np.array(moderateData['afinnScore'])
+
+#visualize distribution
+plt.hist(scores, bins = 100)
+
+plt.show()
 
 #must be 2d for kmeans
 scores2d = scores.reshape(-1,1)
