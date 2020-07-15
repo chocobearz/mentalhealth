@@ -8,11 +8,14 @@ def afinnScore(text) :
 
 def weightedScore(fullText) :
 	textList = fullText.split(".")
-	weights = np.linspace(2,3,len(textList))
+	weights = np.linspace(2,2.5,len(textList))
 	afinnTotal = 0
 	for i in range(len(textList)):
+		wordLength = len(textList[i].split())
+		if (wordLength == 0):
+			wordLength = 1
 		if (i < len(textList)/2):
-			afinnTotal += (afinnScore(textList[i])) /len(textList)
+			afinnTotal += (afinnScore(textList[i])) / wordLength
 		else :
-			afinnTotal += (afinnScore(textList[i]) * weights[i]) /len(textList)
-	return afinnTotal
+			afinnTotal += (afinnScore(textList[i]) * weights[i]) / wordLength
+	return afinnTotal / len(textList)

@@ -9,11 +9,14 @@ happy = {}
 sad = {}
 
 #read in data
-data = pd.read_csv("redditAfinnScores.csv")
+data = pd.read_csv("../data/redditWeightedAfinnScores.csv")
 
 #test for data without the extreme values
-moderateData = data[(data['afinnScore'] > -20) & (data['afinnScore'] < 20)]
-scores = np.array(moderateData['afinnScore'])
+moderateData = data[(data['weightedAfinnScore'] > -20) & (data['weightedAfinnScore'] < 20)]
+scores = np.array(moderateData['weightedAfinnScore'])
+
+plt.hist(scores, bins=100)
+plt.show()
 
 #must be 2d for kmeans
 scores2d = scores.reshape(-1,1)
