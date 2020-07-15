@@ -1,0 +1,79 @@
+---
+title: "mentalHEalthModel"
+author: "PaigeT"
+date: "15/07/2020"
+output: html_document
+---
+
+```{r}
+posts <- read.csv("C:/Users/Correy/Desktop/AI4Good/project/mentalhealth/data/redditAfinnScores.csv", sep = ",", header = TRUE)
+posts$rating <- as.factor(posts$rating)
+posts <- na.omit(posts)
+summary(posts)
+```
+
+
+```{r}
+# Define training control
+train.control <- trainControl(method = "LOOCV")
+
+# Train the model
+model <- train(rating ~ afinnScore, data = posts, method = "multinom",
+               trControl = train.control)
+# Summarize the results
+print(model)
+
+
+```
+
+```{r}
+train.control <- trainControl(method = "repeatedcv", 
+                              number = 10, repeats = 3)
+
+model <- train(rating ~ afinnScore, data = posts, method = "multinom",
+               trControl = train.control)
+# Summarize the results
+print(model)
+```
+
+```{r}
+train_ind <- sample(seq_len(nrow(posts)), size = 0.8*nrow(posts))
+
+train <- posts[train_ind, ]
+test <- posts[-train_ind, ]
+```
+
+
+```{r}
+library(MASS)
+model = polr(rating ~ afinnScore, data = train)
+
+summary(model)
+```
+
+```{r}
+predictedClass <- predict(model, test)
+head(predictedClass)
+predictedScores <- predict(model, test, type="p")
+head(predictedScores)
+
+test$rating
+
+mean(test$rating != predictedClass)
+```
+
+```{r}
+ctable <- coef(summary(model))
+p <- pnorm(abs(ctable[, "t value"]), lower.tail = FALSE) * 2
+ctable <- cbind(ctable, "p value" = p)
+
+ctable
+```
+
+
+```{r}
+library(caret)
+cm = confusionMatrix(predictedClass, test$rating)
+cm
+```
+
