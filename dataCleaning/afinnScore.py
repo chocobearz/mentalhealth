@@ -4,8 +4,18 @@ from afinn import Afinn
 #load afinn class
 afinn = Afinn()
 
+#allow for user to enter csv
+parser = argparse.ArgumentParser()
+parser.add_argument(
+  "csvPath",
+  help="relative path to the csv to be loaded"
+)
+args = parser.parse_args()
+
+csvPath = args.csvPath
+
 #read in data
-data = pd.read_csv("cleanRedditPosts.csv")
+data = pd.read_csv(csvPath)
 
 #extract posts
 posts = list(data['text'])

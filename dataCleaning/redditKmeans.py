@@ -3,13 +3,24 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn import metrics
 import numpy as np
+import argparse
 
 n_clusters = 5
 happy = {}
 sad = {}
 
+#allow for user to enter csv
+parser = argparse.ArgumentParser()
+parser.add_argument(
+  "csvPath",
+  help="relative path to the csv to be loaded"
+)
+args = parser.parse_args()
+
+csvPath = args.csvPath
+
 #read in data
-data = pd.read_csv("redditAfinnScores.csv")
+data = pd.read_csv(csvPath)
 
 #test for data without the extreme values
 moderateData = data[(data['afinnScore'] > -20) & (data['afinnScore'] < 20)]
