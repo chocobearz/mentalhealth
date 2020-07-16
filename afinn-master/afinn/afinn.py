@@ -56,7 +56,7 @@ class Afinn(object):
 
     """
 
-    def __init__(self, language="en", emoticons=False, word_boundary=True):
+    def __init__(self, language="en", emoticons=False, word_boundary=True, specialLexicon=None):
         """Setup dictionary from data file.
 
         The language parameter can be set to English (en) or Danish (da).
@@ -69,9 +69,13 @@ class Afinn(object):
             Includes emoticons in the token list
         word_boundary : bool, optional
             Use word boundary match in the regular expression.
+        specialLexicon : name of txt file 'specialLexicon.txt'
 
         """
-        filename = LANGUAGE_TO_FILENAME[language]
+        if specialLexicon == None:
+            filename = LANGUAGE_TO_FILENAME[language]
+        else:
+            filename = specialLexicon
         full_filename = self.full_filename(filename)
         if emoticons:
             # Words
