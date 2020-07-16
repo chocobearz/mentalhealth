@@ -77,3 +77,37 @@ cm = confusionMatrix(predictedClass, test$rating)
 cm
 ```
 
+```{r}
+library(MASS)
+model = glm(type ~ afinnScore, data = train, family = "binomial")
+#model = polr(type ~ afinnScore, data = train)
+
+summary(model)
+```
+
+```{r}
+prob <- predict(model, test, type = "response")
+pred = rep("sad", dim(test)[1])
+pred[prob > .5] = "happy"
+head(pred)
+#predictedScores <- predict(model, test, type="p")
+#head(predictedScores)
+
+mean(test$type != pred)
+```
+
+```{r}
+ctable <- coef(summary(model))
+p <- pnorm(abs(ctable[, "t value"]), lower.tail = FALSE) * 2
+ctable <- cbind(ctable, "p value" = p)
+
+ctable
+```
+
+
+```{r}
+pred <- as.factor(pred)
+library(caret)
+cm = confusionMatrix(pred, test$type)
+cm
+```
