@@ -1,90 +1,89 @@
-I told	-4
-monotony	-3
-Ritalin	-3
-harrased	-3
-race	-2
-restrooms	-2
-Rejects	-2
-work shift	-2
-will be	-2
-soft	-3
-endoscopy	-2
-inevitable	-2
-desire	-2
-alone	-2
-dedicated	-2
-recurrent	-2
-will dedicated	-2
-tried	-2
-cause	-2
-inevitable	-2
-root	-2
-I say	-2
-I cried	-2
-first	-2
-trauma surgeon	-2
-threads	-2
+i told	-5
+monotony	-4
+ritalin	-4
+harassed	-4
+race	-3
+restrooms	-3
+rejects	-3
+work shift	-3
+will be	-3
+soft	-4
+endoscopy	-3
+inevitable	-3
+desire	-3
+alone	-3
+dedicated	-3
+recurrent	-3
+will dedicated	-3
+tried	-3
+cause	-3
+inevitable	-3
+root	-3
+i say	-3
+i cried	-3
+first	-3
+trauma surgeon	-3
+threads	-3
 alpine
-rheumatologist	-2
-arm	-2
-stiffness	-2
-explode	-2
-they obey	-2
-disappearing	-2
-overwhelms	-2
-overwhelming	-2
-vulnerable	-2
-symptoms	-3
-win	-2
-prefer	-2
-blame	-2
-explain	-2
-remembering	-2
-theory	-2
-lose weight	-2
-gasoline	-2		
-emotionally	-2
-wanders	-3
-schedule	-3
-communicate	-3
-Will go	-2
-similar	-3
-gym	-3
-highlight	-3
-going	-1
-Smoked	-2
-will bring	-2
-disarmed	-2
-cream	-2
-grey	-2
-Hypnotized	-2
-function	-2
-manual	-2
-future	-2
-bad	-2
-depressed	-2
-pick	-2
-I’m leaving	-2
-I took	-2
-slave	-2
-high	-2
-side	-2
-snack	-2
-first	-2
-inspector	-2
-worth	-2
-understood	-2
-Near	-2
-completed	-2
-suicides	-2
-suffice	-2
-video games	-2
-laxative	-2
-volunteered	-2
-particularly	-2
-employees	-2
-harrased-2
-answer	-2
-trust	-2
-realized	-2
-
+rheumatologist	-3
+arm	-3
+stiffness	-3
+explode	-3
+they obey	-3
+disappearing	-3
+overwhelms	-3
+overwhelming	-3
+vulnerable	-3
+symptoms	-4
+win	-3
+prefer	-3
+blame	-3
+explain	-3
+remembering	-3
+theory	-3
+lose weight	-3
+gasoline	-3
+emotionally	-3
+wanders	-4
+schedule	-4
+communicate	-4
+will go	-3
+similar	-4
+gym	-4
+highlight	-4
+going	-2
+smoked	-3
+will bring	-3
+disarmed	-3
+cream	-3
+grey	-3
+hypnotized	-3
+function	-3
+manual	-3
+future	-3
+bad	-3
+depressed	-3
+pick	-3
+im leaving	-3
+i'm leaving	-3
+i took	-3
+slave	-3
+high	-3
+side	-3
+snack	-3
+first	-3
+inspector	-3
+worth	-3
+understood	-3
+near	-3
+completed	-3
+suicides	-3
+suffice	-3
+video games	-3
+laxative	-3
+volunteered	-3
+particularly	-3
+employees	-3
+answer	-3
+trust	-3
+realized	-3
