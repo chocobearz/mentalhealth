@@ -3,19 +3,33 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn import metrics
 import numpy as np
+import argparse
 
 n_clusters = 5
 happy = {}
 sad = {}
 
+#allow for user to enter csv
+parser = argparse.ArgumentParser()
+parser.add_argument(
+  "csvPath",
+  help="relative path to the csv to be loaded"
+)
+args = parser.parse_args()
+
+csvPath = args.csvPath
+
 #read in data
-data = pd.read_csv("../data/redditWeightedAfinnScores.csv")
+data = pd.read_csv(csvPath)
 
 #test for data without the extreme values
-moderateData = data[(data['weightedAfinnScore'] > -20) & (data['weightedAfinnScore'] < 20)]
-scores = np.array(moderateData['weightedAfinnScore'])
+#moderateData = data[(data['afinnScore'] > -20) & (data['afinnScore'] < 20)]
+moderateData = data
+scores = np.array(moderateData['afinnScore'])
 
-plt.hist(scores, bins=100)
+#visualize distribution
+plt.hist(scores, bins = 100)
+
 plt.show()
 
 #must be 2d for kmeans
