@@ -115,3 +115,4 @@ no longer exist	-5
 not exist	-5
 stuck	-4
 trauma	-4
+cry for help	-4
