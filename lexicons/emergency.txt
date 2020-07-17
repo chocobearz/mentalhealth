@@ -87,10 +87,10 @@ might snap	-5
 take my life	-5
 taking my life	-5
 going to kill myself	-5
-wish I were dead	-5
-wish I hadn't been born	-5
-wish I had not been born	-5
-wish I hadnt been born	-5
+wish i were dead	-5
+wish i hadn't been born	-5
+wish i had not been born	-5
+wish i hadnt been born	-5
 goodbye	-5
 you won't see me again	-5
 you wont see me again	-5
