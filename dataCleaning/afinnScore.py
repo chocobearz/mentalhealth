@@ -1,15 +1,9 @@
 import pandas as pd
 from afinn import Afinn
 import argparse
+from afinnWrapper import weightedScore
 
-#load afinn class for base lexicon
-afinnBase = Afinn(emoticons=True)
-#load emergency lexicon
-afinnEm = Afinn('em')
-#load research lexicon
-afinnRe = Afinn('re')
-#load absolutism lexicon
-afinnAb = Afinn('ab')
+lexicons = ['en', 'em', 're', 'ab']
 
 #allow for user to enter csv
 parser = argparse.ArgumentParser()
@@ -32,11 +26,17 @@ emergencyScore = []
 absolutismScore = []
 
 #calculate the sentiment score for each post and keep it with the true score
-for i, post in enumerate(posts):
-  afinnScore.append(afinnBase.score(post))
-  researchScore.append(afinnRe.score(post))
-  emergencyScore.append(afinnEm.score(post))
-  absolutismScore.append(afinnAb.score(post))
+for lexicon in lexicons:
+  for post in posts:
+    score = weightedScore(post, lexicon)
+    if lexicon == 'en':
+      afinnScore.append(score)
+    elif lexicon == 're':
+      researchScore.append(score)
+    elif lexicon == 'em':
+      emergencyScore.append(score)
+    else:
+      absolutismScore.append(score)
 
 #store as pandas dataframe
 data['afinnScore'] = afinnScore

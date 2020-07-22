@@ -1,89 +1,88 @@
-i told	-5
-monotony	-4
-ritalin	-4
-harassed	-4
-race	-3
-restrooms	-3
-rejects	-3
-work shift	-3
-will be	-3
-soft	-4
-endoscopy	-3
-inevitable	-3
-desire	-3
-alone	-3
-dedicated	-3
-recurrent	-3
-will dedicated	-3
-tried	-3
-cause	-3
-inevitable	-3
-root	-3
-i say	-3
-i cried	-3
-first	-3
-trauma surgeon	-3
-threads	-3
-alpine
-rheumatologist	-3
-arm	-3
-stiffness	-3
-explode	-3
-they obey	-3
-disappearing	-3
-overwhelms	-3
-overwhelming	-3
-vulnerable	-3
-symptoms	-4
-win	-3
-prefer	-3
-blame	-3
-explain	-3
-remembering	-3
-theory	-3
-lose weight	-3
-gasoline	-3
-emotionally	-3
-wanders	-4
-schedule	-4
-communicate	-4
-will go	-3
-similar	-4
-gym	-4
-highlight	-4
-going	-2
-smoked	-3
-will bring	-3
-disarmed	-3
-cream	-3
-grey	-3
-hypnotized	-3
-function	-3
-manual	-3
-future	-3
-bad	-3
-depressed	-3
-pick	-3
-im leaving	-3
-i'm leaving	-3
-i took	-3
-slave	-3
-high	-3
-side	-3
-snack	-3
-first	-3
-inspector	-3
-worth	-3
-understood	-3
-near	-3
-completed	-3
-suicides	-3
-suffice	-3
-video games	-3
-laxative	-3
-volunteered	-3
-particularly	-3
-employees	-3
-answer	-3
-trust	-3
-realized	-3
+i told	-30
+monotony	-20
+ritalin	-20
+harassed	-20
+race	-15
+restrooms	-15
+rejects	-15
+work shift	-15
+will be	-15
+soft	-20
+endoscopy	-15
+inevitable	-15
+desire	-15
+alone	-15
+dedicated	-15
+recurrent	-15
+will dedicated	-15
+tried	-15
+cause	-15
+inevitable	-15
+root	-15
+i say	-15
+i cried	-15
+first	-15
+trauma surgeon	-15
+threads	-15
+rheumatologist	-15
+arm	-15
+stiffness	-15
+explode	-15
+they obey	-15
+disappearing	-15
+overwhelms	-15
+overwhelming	-15
+vulnerable	-15
+symptoms	-20
+win	-15
+prefer	-15
+blame	-15
+explain	-15
+remembering	-15
+theory	-15
+lose weight	-15
+gasoline	-15
+emotionally	-15
+wanders	-20
+schedule	-20
+communicate	-20
+will go	-15
+similar	-20
+gym	-20
+highlight	-20
+going	-7
+smoked	-15
+will bring	-15
+disarmed	-15
+cream	-15
+grey	-15
+hypnotized	-15
+function	-15
+manual	-15
+future	-15
+bad	-15
+depressed	-15
+pick	-15
+im leaving	-15
+i'm leaving	-15
+i took	-15
+slave	-15
+high	-15
+side	-15
+snack	-15
+first	-15
+inspector	-15
+worth	-15
+understood	-15
+near	-15
+completed	-15
+suicides	-15
+suffice	-15
+video games	-15
+laxative	-15
+volunteered	-15
+particularly	-15
+employees	-15
+answer	-15
+trust	-15
+realized	-15

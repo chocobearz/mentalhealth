@@ -25,10 +25,8 @@ posts = posts.dropna()
 
 # for now just weighted afinn score
 
-features = np.array(posts['afinnScore'])
+features = posts.drop(['rating', 'id', 'type', 'text'], axis = 1)
 rating = posts['rating']
-
-features = features.reshape(-1,1)
 
 featureTrain, featureTest, labelTrain, labelTest = train_test_split(
     features,
