@@ -15,7 +15,7 @@ LANGUAGE_TO_FILENAME = {
     'en': '../lexicons/AFINN-en-165.txt',
     'em': '../lexicons/emergency.txt',
     're': '../lexicons/researchLexicon.txt',
-    'emoticons': 'AFINN-emoticon-8.txt',
+    'emoticons': '../lexicons/AFINN-emoticon-8.txt',
     }
 
 
@@ -81,8 +81,7 @@ class Afinn(object):
                 word_boundary=True, capture=False)
 
             # Emoticons
-            filename_emoticons = LANGUAGE_TO_FILENAME['emoticons']
-            full_filename_emoticons = self.full_filename(filename_emoticons)
+            full_filename_emoticons = LANGUAGE_TO_FILENAME['emoticons']
             emoticons_and_score = self.read_word_file(full_filename_emoticons)
             self._dict.update(emoticons_and_score)
             regex_emoticons = self.regex_from_tokens(
@@ -368,6 +367,7 @@ class Afinn(object):
         """
         # TODO: ":D" is not matched
         words = self.find_all(text)
+        #print(words)
         scores = [self._dict[word] for word in words]
         return scores
 
