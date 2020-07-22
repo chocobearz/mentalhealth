@@ -9,7 +9,7 @@ var usersRouter = require('./routes/users');
 
 const { Pool } = require('pg');
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.DATABASE_URL ,
   ssl: {
     rejectUnauthorized: false
   }
@@ -32,9 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-require('./routes/user.routes.js')(app);
-
-.get('/db', async (req, res) => {
+app.get('/db', async (req, res) => {
     try {
       const client = await pool.connect();
       const result = await client.query('SELECT * FROM users');
