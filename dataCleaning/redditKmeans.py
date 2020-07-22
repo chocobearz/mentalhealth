@@ -5,7 +5,7 @@ from sklearn import metrics
 import numpy as np
 import argparse
 
-n_clusters = 5
+n_clusters = 3
 happy = {}
 sad = {}
 

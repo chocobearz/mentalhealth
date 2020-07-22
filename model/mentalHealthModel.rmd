@@ -9,16 +9,33 @@ output: html_document
 posts <- read.csv("C:/Users/Correy/Desktop/AI4Good/project/mentalhealth/data/redditAfinnScores.csv", sep = ",", header = TRUE)
 posts$rating <- as.factor(posts$rating)
 posts <- na.omit(posts)
-summary(posts)
+#posts <- posts[posts$rating != 1,]
+```
+
+```{r}
+library(ggplot2)
+ggplot(posts, aes(x = rating, y = afinnScore)) +
+    geom_point(aes(color = rating))
+
+ggplot(posts, aes(x = rating, y = researchScore)) +
+    geom_point(aes(color = rating))
+
+ggplot(posts, aes(x = rating, y = absolutismScore)) +
+    geom_point(aes(color = rating))
+
+ggplot(posts, aes(x = rating, y = emergencyScore)) +
+    geom_point(aes(color = rating))
+
 ```
 
 
 ```{r}
+library(caret)
 # Define training control
 train.control <- trainControl(method = "LOOCV")
 
 # Train the model
-model <- train(rating ~ afinnScore, data = posts, method = "multinom",
+model <- train(rating ~ afinnScore + emergencyScore, data = posts, method = "multinom",
                trControl = train.control)
 # Summarize the results
 print(model)
@@ -30,7 +47,7 @@ print(model)
 train.control <- trainControl(method = "repeatedcv", 
                               number = 10, repeats = 3)
 
-model <- train(rating ~ afinnScore, data = posts, method = "multinom",
+model <- train(rating ~ afinnScore + researchScore + emergencyScore + absolutismScore, data = posts, method = "multinom",
                trControl = train.control)
 # Summarize the results
 print(model)
@@ -46,7 +63,7 @@ test <- posts[-train_ind, ]
 
 ```{r}
 library(MASS)
-model = polr(rating ~ afinnScore, data = train)
+model = polr(rating ~ afinnScore + emergencyScore, data = train)
 
 summary(model)
 ```
@@ -94,14 +111,6 @@ head(pred)
 #head(predictedScores)
 
 mean(test$type != pred)
-```
-
-```{r}
-ctable <- coef(summary(model))
-p <- pnorm(abs(ctable[, "t value"]), lower.tail = FALSE) * 2
-ctable <- cbind(ctable, "p value" = p)
-
-ctable
 ```
 
 
