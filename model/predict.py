@@ -1,18 +1,19 @@
 from scipy.special import softmax
 import numpy as np
 
-def predict(x):
-  """Choose Move determines what the next optimal move should be, based on the
-  maximizing the linear combination from the play statistics of random playouts
+def predict(scores):
+  """predict an individuals sadess category based on their lexicon scores
+  this uses our multinomial regression model that was trained on a combination
+  of r/suisidewatch and r/mentalhealth data
 
   Parameters:
 
-  next_player (string) : the next/first player (X or O) to make a move
-  game (tictactoe object): the game board before the play is made
+  scores (list) : list of lexicon scores from a journal entry. Afinn Score,
+  Emergency Score, Research Score and Abosolutism Score
 
   Returns:
 
-  int: The index of the most optimal location to place a piece on the board
+  int: the sadness category. 1 = happy, -1 = sad, -3 = crisis
   """
 
   weights = [
@@ -23,7 +24,7 @@ def predict(x):
 
   intercepts = [-1.52631775, 0.20101568, 1.32530206]
 
-  probs = softmax((weights @ x + intercepts))
+  probs = softmax((weights @ scores + intercepts))
 
   if max(probs) == probs[0]:
     return -3
