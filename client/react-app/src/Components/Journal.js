@@ -20,7 +20,7 @@ export class Journal extends React.Component<Props, State> {
   }
 
   fetchJournalScore = () => {
-     getFriends(this.state.journalEntry).then(
+     getSentimentLabel(this.state.journalEntry).then(
       (value) => { 
         this.setState({label: value.label})
       },
