@@ -7,7 +7,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import metrics
 import statsmodels.api as sm
-from predict import predict
 
 #allow for user to enter csv
 parser = argparse.ArgumentParser()
@@ -43,17 +42,7 @@ logisticRegr = LogisticRegression()
 
 logisticRegr.fit(featureTrain, labelTrain)
 
-weights = logisticRegr.coef_
-intercept = logisticRegr.intercept_
-print(weights)
-print(intercept)
-
 predictions = logisticRegr.predict(featureTest)
-
-for i in range(10):
-  predict(featureTest.iloc[i,])
-
-  print(predictions[i])
 
 score = logisticRegr.score(featureTest, labelTest)
 print(score)
