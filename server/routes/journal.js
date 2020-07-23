@@ -1,7 +1,7 @@
 module.exports = (app) => {
-    //const journalController = require('../controllers/journalController.js');
+    const journalController = require('../controllers/journalController.js');
 
-    // Create a new Note
-   // app.post('/journal/getSentimentScore', journalController.getSentimentScore);
+
+    app.post('/journal/getSentimentLabel', journalController.getSentimentLabel);
     
 }
