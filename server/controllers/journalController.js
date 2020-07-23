@@ -7,7 +7,7 @@ exports.getSentimentLabel = (req, res) => {
     console.log("jounralEntry : " + journalEntry)
     var label = journalEntry.length % 3
     console.log("label : " + label)
-    return res.status(response.statusCode).send({
+    return res.status(200).send({
         label: label
     });
 
