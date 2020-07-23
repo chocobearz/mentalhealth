@@ -1,5 +1,5 @@
-//const apiURL = "https://mental-health-node-app.herokuapp.com/"
-const apiURL = "https://localhost:3030"
+const apiURL = "https://mental-health-node-app.herokuapp.com/"
+//const apiURL = "https://localhost:3030"
 export async function getSentimentLabel(journalEntry) {
   try {
     let response: any = await fetch(apiURL + "/journal/getSentimentLabel", {
