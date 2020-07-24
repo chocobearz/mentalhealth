@@ -30,14 +30,18 @@ text = args.text
 weights = np.array(json.loads(args.weights))
 intercepts = np.array(json.loads(args.intercepts))
 
+#initialize model class
 mod = model(weights, intercepts, longTermScore)
 
+#get afinn scores for new entry
 scores = afinnScore(text)
 
+#get mental health prediction based on scores
 mod.predict(scores)
 
 print(mod.journalScore)
 
+#calculate new current score from weighted average
 mod.assessState()
 
 print(mod.currentState)
