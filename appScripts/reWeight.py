@@ -41,12 +41,7 @@ print(mod.journalScore)
 
 print(mod.currentState)
 
-print(mod.weights)
-
 mod.reWeight(scores)
 
 print(mod.weights)
 
-mod.predict(scores)
-
-print(mod.journalScore)
