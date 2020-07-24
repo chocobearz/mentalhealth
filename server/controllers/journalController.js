@@ -23,6 +23,12 @@ exports.getSentimentLabel = (req, res) => {
         return res.status(200).send({
         label: dataString
     });
+        py.stderr.on('data', (data) => {
+   console.log(`error:${data}`);
+});
+py.stderr.on('close', () => {
+   console.log("Closed");
+});
 
     } ) 
 };
