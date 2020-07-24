@@ -26,6 +26,22 @@ ggplot(posts, aes(x = rating, y = absolutismScore)) +
 ggplot(posts, aes(x = rating, y = emergencyScore)) +
     geom_point(aes(color = rating))
 
+ggplot(posts, aes(x = rating, y = afinnScore)) +
+  geom_boxplot(size = .75) +
+  geom_jitter(alpha = .5) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+ggplot(posts, aes(x = rating, y = researchScore)) +
+  geom_boxplot(size = .75) +
+  geom_jitter(alpha = .5) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+ggplot(posts, aes(x = rating, y = emergencyScore)) +
+  geom_boxplot(size = .75) +
+  geom_jitter(alpha = .5) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+ggplot(posts, aes(x = rating, y = absolutismScore)) +
+  geom_boxplot(size = .75) +
+  geom_jitter(alpha = .5) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
 ```
 
 
@@ -63,7 +79,7 @@ test <- posts[-train_ind, ]
 
 ```{r}
 library(MASS)
-model = polr(rating ~ afinnScore + emergencyScore, data = train)
+model = polr(rating ~ afinnScore + emergencyScore + absolutismScore + researchScore, data = train)
 
 summary(model)
 ```
