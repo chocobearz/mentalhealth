@@ -68,19 +68,19 @@ class model:
       self.weights = self.weights - learningRate * weightsGrad
       self.intercepts = self.intercepts - learningRate * interceptGrad
 
-#  def assessState(self, entries):
-#    if self.journalScore == -3:
-#      self.currentState = -5
-#    elif self.journalScore < 0:
-#      longTermState = (self.currentState + 0.2*self.journalScore)/entries
-#    else:
-#      longTermState = (self.currentState + 0.5)/entries
-#    if longTermState > = 5:
-#      self.currentState = 5
-#    elif longTermState <= -5:
-#      self.currentState = -5
-#    else:
-#      self.currentState = longTermState
+  def assessState(self):
+    if self.journalScore == -3:
+      self.currentState = -5
+    elif self.journalScore < 0:
+      longTermState = (self.currentState + 0.1*self.journalScore)
+    else:
+      longTermState = (self.currentState + 0.2)
+    if longTermState >= 5:
+      self.currentState = 5
+    elif longTermState <= -5:
+      self.currentState = -5
+    else:
+      self.currentState = longTermState
 
   def mapInputToRating(self):
     """Map user input on 5 to -5 scale to index scale for our ratings, 0-2

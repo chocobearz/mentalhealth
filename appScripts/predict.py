@@ -23,13 +23,9 @@ parser.add_argument(
   "intercepts",
   help="current model intercepts"
 )
-parser.add_argument(
-  "entries",
-  help="number of journal entries user had made"
-)
 args = parser.parse_args()
 
-longTermScore = int(args.longTermScore)
+longTermScore = float(args.longTermScore)
 text = args.text
 weights = np.array(json.loads(args.weights))
 intercepts = np.array(json.loads(args.intercepts))
@@ -42,10 +38,7 @@ mod.predict(scores)
 
 print(mod.journalScore)
 
-entries += 1
-
-mod.assessState(entries)
+mod.assessState()
 
 print(mod.currentState)
 
-print(entries)
