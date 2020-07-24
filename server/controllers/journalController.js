@@ -1,4 +1,4 @@
-var path = require('path');
+
 
 exports.getSentimentLabel = (req, res) => {
 
@@ -33,7 +33,7 @@ const runPy = async (res) => {
         var options = {
         mode: 'text',
         args: [longTermScore, journalEntry, weights, intercepts],
-        scriptPath: path.join(__dirname, 'appScripts/')
+        scriptPath: '/app/appScripts/'
         };
 
         const result = await new Promise((resolve, reject) => {
