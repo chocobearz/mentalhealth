@@ -51,8 +51,15 @@ class model:
 
     none, updates self.weights and self.intercept
     """
-    learningRate = 0.01
+    if (self.journalScore == 1 and self.currentState in range(-5,-3)) or (self.journalScore == -3 and self.currentState in range(0,6)):
+      learningRate = 1000000000000000000000000000
+      #up to down 116
+    else:
+      #down to up
+      learningRate = 870
+      #14 up to down
 
+    print("learningRate = {}".format(learningRate))
     y = self.mapInputToRating()
     x = np.array(scores)
 
@@ -64,8 +71,19 @@ class model:
     self.weights = self.weights - learningRate * weightsGrad
     self.intercepts = self.intercepts - learningRate * interceptGrad
 
-  def assessState(self):
-    self.currentState = (self.currentState + self.journalScore)/5
+  def assessState(self, entries):
+    if self.journalScore == -3:
+      self.currentState = -5
+    elif self.journalScore < 0:
+      longTermState = (self.currentState + 0.2*self.journalScore)/entries
+    else:
+      longTermState = (self.currentState + 0.5*self.journalScore)/entries
+    if longTermState > = 5:
+      self.currentState = 5
+    elif longTermState <= -5:
+      self.currentState = -5
+    else:
+      self.currentState = longTermState
 
   def mapInputToRating(self):
     """Map user input on 5 to -5 scale to index scale for our ratings, 0-2
@@ -81,7 +99,7 @@ class model:
 
     if self.currentState in range(0,6):
       return 2
-    elif self.currentState in range (-3,-1):
+    elif self.currentState in range (-3,0):
       return 1
     else:
       return 0
