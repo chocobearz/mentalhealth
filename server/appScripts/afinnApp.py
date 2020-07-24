@@ -178,7 +178,6 @@ class Afinn(object):
         with codecs.open(filename, encoding='UTF-8') as fid:
             for n, line in enumerate(fid):
                 try:
-                    print("line: " + line)
                     word, score = line.strip().split('\t')
                 except ValueError:
                     msg = 'Error in line %d of %s' % (n + 1, filename)
