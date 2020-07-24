@@ -24,7 +24,6 @@ class model:
 
     none, updates self.jounralScore with the rating for this journal entry
     """
-
     #probabilities the post belongs to each category
     probs = softmax((
       np.array(self.weights) @ 
@@ -83,6 +82,7 @@ class model:
     else:
     #take a slightly larger step as the entry is always a value of 1 if happy
       longTermState = (self.currentState + 0.2)
+    #if step takes you out of rating bounds set to min or max rating
     if longTermState >= 5:
       self.currentState = 5
     elif longTermState <= -5:
@@ -101,7 +101,6 @@ class model:
 
     int: mapped state. 0 = crisis, 1 = sad, 2 = happy
     """
-
     if self.currentState in range(0,6):
       return 2
     elif self.currentState in range (-3,0):
