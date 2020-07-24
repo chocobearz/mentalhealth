@@ -47,4 +47,3 @@ print(mod.journalScore)
 mod.assessState()
 
 print(mod.currentState)
-sys.stdout.flush()
