@@ -20,10 +20,9 @@ exports.getSentimentLabel = (req, res) => {
     py.stdout.on('data', function(data) { 
         console.log(data.toString()); 
         dataString += data
-    } ) 
-
-    return res.status(200).send({
+        return res.status(200).send({
         label: dataString
     });
 
+    } ) 
 };
