@@ -3,7 +3,7 @@ from afinnApp import Afinn
 
 
 def afinnScore(text, lexicon) :
-  afinn = Afinn(lexicon, emoticons=True)
+  afinn = Afinn(lexicon, emoticons=False)
   return afinn.score(text)
 
 def weightedScore(fullText, lexicon) :
