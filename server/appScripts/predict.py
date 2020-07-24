@@ -7,7 +7,6 @@ import sys
 
 '''predict mental state based on a journal entry'''
 
-# parser = argparse.ArgumentParser()
 # parser.add_argument(
 #   "longTermScore",
 #   help="string of journal entry"
@@ -26,12 +25,13 @@ import sys
 # )
 # args = parser.parse_args()
 
-# longTermScore = int(args.longTermScore)
+# longTermScore = float(args.longTermScore)
 # text = args.text
 # weights = np.array(json.loads(args.weights))
 # intercepts = np.array(json.loads(args.intercepts))
 
-longTermScore = int(sys.argv[1])
+
+longTermScore = float(sys.argv[1])
 text = sys.argv[2]
 weights = np.array(json.loads(sys.argv[3]))
 intercepts = np.array(json.loads(sys.argv[4]))
