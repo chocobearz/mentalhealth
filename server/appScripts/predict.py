@@ -34,12 +34,7 @@ import sys
 longTermScore = int(sys.argv[1])
 text = sys.argv[2]
 weights = np.array(json.loads(sys.argv[3]))
-intercepts = np.array(json.loads(sys.argv[4])
-
-print(weights)
-print(intercepts)
-print(longTermScore)
-print(text)
+intercepts = np.array(json.loads(sys.argv[4]))
 
 mod = model(weights, intercepts, longTermScore)
 
