@@ -11,11 +11,11 @@ from os.path import dirname, join
 
 
 LANGUAGE_TO_FILENAME = {
-    'ab': join(dirname, '../lexicons/absolutismLexicon.txt'),
-    'en': join(dirname, '../lexicons/AFINN-en-165.txt'),
-    'em': join(dirname, '../lexicons/emergency.txt'),
-    're': join(dirname, '../lexicons/researchLexicon.txt'),
-    'emoticons': join(dirname, '../lexicons/AFINN-emoticon-8.txt'),
+    'ab': '/app/lexicons/absolutismLexicon.txt'),
+    'en': '/app/lexicons/AFINN-en-165.txt'),
+    'em': '/app/lexicons/emergency.txt'),
+    're': '/app/lexicons/researchLexicon.txt'),
+    'emoticons':'/app/lexicons/AFINN-emoticon-8.txt'),
     }
 
 
