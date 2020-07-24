@@ -1,45 +1,43 @@
 from model import model
 import argparse
 from afinnScoreApp import afinnScore
+import json
+import numpy as np
 
-'''When a new user is added to the database add the training model weights to
-the database as their model'''
+'''predict mental state based on a journal entry'''
 
-def pred(longTermScore, text, weights, intercepts):
-  parser = argparse.ArgumentParser()
-  parser.add_argument(
-    "longTermScore",
-    help="string of journal entry"
-  )
-  parser.add_argument(
-    "text",
-    help="string of journal entry"
-  )
-  parser.add_argument(
-    "weights",
-    help="current model weights"
-  )
-  parser.add_argument(
-    "intercepts",
-    help="current model intercepts"
-  )
-  args = parser.parse_args()
-  
-  longTermScore = args.longTermScore
-  text = args.text
-  weights = args.weights
-  intercepts = args.intercepts
+parser = argparse.ArgumentParser()
+parser.add_argument(
+  "longTermScore",
+  help="string of journal entry"
+)
+parser.add_argument(
+  "text",
+  help="string of journal entry"
+)
+parser.add_argument(
+  "weights",
+  help="current model weights"
+)
+parser.add_argument(
+  "intercepts",
+  help="current model intercepts"
+)
+args = parser.parse_args()
 
-  mod = model(weights, intercepts, longTermScore)
+longTermScore = int(args.longTermScore)
+text = args.text
+weights = np.array(json.loads(args.weights))
+intercepts = np.array(json.loads(args.intercepts))
 
-  scores = afinnScore(text)
+mod = model(weights, intercepts, longTermScore)
 
-  print(scores)
+scores = afinnScore(text)
 
-  mod.predict(scores)
+mod.predict(scores)
 
-  print(mod.journalScore)
+print(mod.journalScore)
 
-  mod.assessState()
+mod.assessState()
 
-  #print(mod.currentState)
+print(mod.currentState)

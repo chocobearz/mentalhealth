@@ -1,6 +1,6 @@
 from scipy.special import softmax
-#import jax.numpy as np
-#import jax
+import jax.numpy as np
+import jax
 
 class model:
 
@@ -46,14 +46,16 @@ class model:
 
     Returns:
 
-    none, updates self.weights
+    none, updates self.weights and self.intercept
     """
     learningRate = 0.001
+
+    y = mapInputToRating()
 
     weights_grad, intercept_grad = jax.grad(
         lambda w, b, x, y : -jax.nn.softmax(w @ x + b)[y], (0, 1)
     )(
-        self.weights, self.intercepts, x, y
+        self.weights, self.intercepts, scores, y
     )
     self.weights = self.weights - learningRate * weightsGrad
     self.intercepts = self.intercepts - learningRate * interceptGrad
@@ -61,16 +63,34 @@ class model:
   def assessState(self):
     self.currentState = (self.currentState + self.journalScore)/5
 
-#  def mapInputToRating(self):
-#    """Map user input on 5 to -5 scale to index scale for our ratings, 0-2
-#
-#    Parameters:
-#
-#    input (int) : user input of how they are are currently feeling
-#
-#    Returns:
-#
-#    int: mapped state. 0 = crisis, 1 = sad, 2 = happy
-#    """
-#
-#    if self.inputState = 
+  def mapInputToRating(self):
+    """Map user input on 5 to -5 scale to index scale for our ratings, 0-2
+
+    Parameters:
+
+    None
+
+    Returns:
+
+    int: mapped state. 0 = crisis, 1 = sad, 2 = happy
+    """
+
+    if self.inputState in range(0,6):
+      return 2
+    elif self.inputState in range (-3,-1):
+      return 1
+    else:
+      return 0
+
+    def __setitem__(self, inputState):
+      """set the current mental state to the user input value
+
+      Parameters:
+
+      userUnput (int): user input mental state score
+
+      Returns:
+
+      None, updates the current long term mental state
+      """
+      self.currentState = inputState
