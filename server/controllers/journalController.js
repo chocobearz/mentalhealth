@@ -23,18 +23,24 @@ exports.getSentimentLabel = (req, res) => {
     //     label: dataString
     // });
 
-    var options = {
+    const runPy = async (code) => {
+        var options = {
         mode: 'text',
         args: [longTermScore, journalEntry, weights, intercepts],
         scriptPath: '/appScripts/'
+        };
+
+        const result = await new Promise((resolve, reject) => {
+            PythonShell.run('predict.py', options, (err, results) => {
+            if (err) return reject(err);
+            return resolve(results);
+            });
+        });
+        console.log(result.stdout);
+            return res.status(200).send({
+            label: resJSON
+        });
     };
 
-    PythonShell.run('predict.py', options, function (err, results) { 
-      console.log(err);
-      console.log(results);
-      var resJSON = JSON.parse(results);
-      return res.status(200).send({
-        label: resJSON
-        });
-    });
+
 };
