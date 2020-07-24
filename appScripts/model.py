@@ -1,6 +1,6 @@
 from scipy.special import softmax
-import jax.numpy as np
-import jax
+#import jax.numpy as np
+#import jax
 
 class model:
 
@@ -35,31 +35,31 @@ class model:
     else:
       self.journalScore = 1
 
-  def reWeight(self, scores):
-    """Based on user input update the logsistic model weights using gradient 
-    descent
-
-    Parameters:
-
-    scores (list) : list of lexicon scores from a journal entry. Afinn Score,
-    Emergency Score, Research Score and Abosolutism Score
-
-    Returns:
-
-    none, updates self.weights and self.intercept
-    """
-    learningRate = 0.001
-
-    y = mapInputToRating()
-
-    weights_grad, intercept_grad = jax.grad(
-        lambda w, b, x, y : -jax.nn.softmax(w @ x + b)[y], (0, 1)
-    )(
-        self.weights, self.intercepts, scores, y
-    )
-    self.weights = self.weights - learningRate * weightsGrad
-    self.intercepts = self.intercepts - learningRate * interceptGrad
-
+#  def reWeight(self, scores):
+#    """Based on user input update the logsistic model weights using gradient 
+#    descent
+#
+#    Parameters:
+#
+#    scores (list) : list of lexicon scores from a journal entry. Afinn Score,
+#    Emergency Score, Research Score and Abosolutism Score
+#
+#    Returns:
+#
+#    none, updates self.weights and self.intercept
+#    """
+#    learningRate = 0.001
+#
+#    y = mapInputToRating()
+#
+#    weights_grad, intercept_grad = jax.grad(
+#        lambda w, b, x, y : -jax.nn.softmax(w @ x + b)[y], (0, 1)
+#    )(
+#        self.weights, self.intercepts, scores, y
+#    )
+#    self.weights = self.weights - learningRate * weightsGrad
+#    self.intercepts = self.intercepts - learningRate * interceptGrad
+#
   def assessState(self):
     self.currentState = (self.currentState + self.journalScore)/5
 
