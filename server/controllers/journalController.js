@@ -14,7 +14,7 @@ exports.getSentimentLabel = (req, res) => {
     var weights = "[[-0.02807738, 0.0393423, -0.85414827, 0.00677817],[-0.02909687, 0.03356314, -0.74487031, 0.00826826],[0.05717426, -0.07290543, 1.59901859, -0.01504643]]";
 
     var spawn = require('child_process').spawn;
-    var py = spawn('python', ['predict.py', longTermScore, journalEntry, weights, intercepts]);
+    var py = spawn('python', ['../../appScripts/predict.py', longTermScore, journalEntry, weights, intercepts]);
     var dataString = '';
 
     process.stdout.on('data', function(data) { 
