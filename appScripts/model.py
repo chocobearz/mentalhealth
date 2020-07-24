@@ -51,8 +51,15 @@ class model:
 
     none, updates self.weights and self.intercept
     """
-    learningRate = 0.01
+    if (self.journalScore == 1 and self.currentState in range(-5,-3)) or (self.journalScore == -3 and self.currentState in range(0,6)):
+      learningRate = 1000000000000000000000000000
+      #up to down 116
+    else:
+      #down to up
+      learningRate = 870
+      #14 up to down
 
+    print("learningRate = {}".format(learningRate))
     y = self.mapInputToRating()
     x = np.array(scores)
 
@@ -81,7 +88,7 @@ class model:
 
     if self.currentState in range(0,6):
       return 2
-    elif self.currentState in range (-3,-1):
+    elif self.currentState in range (-3,0):
       return 1
     else:
       return 0
