@@ -26,7 +26,7 @@ exports.getSentimentLabel = (req, res) => {
     var options = {
         mode: 'text',
         args: [longTermScore, journalEntry, weights, intercepts],
-        scriptPath: '../appScripts/'
+        scriptPath: '/appScripts/'
     };
 
     PythonShell.run('predict.py', options, function (err, results) { 
