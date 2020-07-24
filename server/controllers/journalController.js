@@ -1,5 +1,4 @@
-const url = "https://jsonplaceholder.typicode.com/posts/1";
-var python = require('python-shell');
+
 
 exports.getSentimentLabel = (req, res) => {
 
@@ -8,6 +7,7 @@ exports.getSentimentLabel = (req, res) => {
     // var label = journalEntry.length % 3
     // console.log("label : " + label)
 
+    const python = require('python-shell');
     var longTermScore = 0;
     var journalEntry = "Text sample"
     var intercepts = "[-1.52631775, 0.20101568, 1.32530206]";
