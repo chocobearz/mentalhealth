@@ -17,7 +17,7 @@ exports.getSentimentLabel = (req, res) => {
     var py = spawn('python', ['../../appScripts/predict.py', longTermScore, journalEntry, weights, intercepts]);
     var dataString = '';
 
-    process.stdout.on('data', function(data) { 
+    py.stdout.on('data', function(data) { 
         console.log(data.toString()); 
         dataString += data
     } ) 
