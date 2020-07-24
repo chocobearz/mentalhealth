@@ -32,9 +32,9 @@ exports.getSentimentLabel = (req, res) => {
     python.run('../appScripts/predict.py', options, function (err, results) { 
       console.log(err);
       console.log(results);
-      var res = JSON.parse(results);
+      var resJSON = JSON.parse(results);
       return res.status(200).send({
-        label: res
+        label: resJSON
         });
     });
 };
