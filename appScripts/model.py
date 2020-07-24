@@ -7,7 +7,6 @@ class model:
   def __init__(self, weights, intercepts, inputState, journalScore = None):
     self.weights = weights
     self.intercepts = intercepts
-    #this will be none when calling predict as it is not necessary
     self.currentState = inputState
     self.journalScore = journalScore
 
@@ -59,7 +58,7 @@ class model:
 #    )
 #    self.weights = self.weights - learningRate * weightsGrad
 #    self.intercepts = self.intercepts - learningRate * interceptGrad
-#
+
   def assessState(self):
     self.currentState = (self.currentState + self.journalScore)/5
 
