@@ -30,7 +30,6 @@ class model:
       np.array(scores) + 
       np.array(self.intercepts)
     ))
-
     if max(probs) == probs[0]:
       self.journalScore = -3
     elif max(probs) == probs[1]:
@@ -52,38 +51,36 @@ class model:
     none, updates self.weights and self.intercept
     """
     if (self.journalScore == 1 and self.currentState in range(-5,-3)) or (self.journalScore == -3 and self.currentState in range(0,6)):
-      learningRate = 1000000000000000000000000000
-      #up to down 116
+      learningRate = 0.01
     else:
       #down to up
-      learningRate = 870
-      #14 up to down
+      learningRate = 0.001
 
-    print("learningRate = {}".format(learningRate))
     y = self.mapInputToRating()
-    x = np.array(scores)
+    x = np.array(scores, dtype = np.float64)
 
-    weightsGrad, interceptGrad = jax.grad(
-        lambda w, b, x, y : -jax.nn.softmax(w @ x + b)[y], (0, 1)
-    )(
-        self.weights, self.intercepts, x, y
-    )
-    self.weights = self.weights - learningRate * weightsGrad
-    self.intercepts = self.intercepts - learningRate * interceptGrad
+    for i in range(100):
+      weightsGrad, interceptGrad = jax.grad(
+          lambda w, b, x, y : -jax.nn.softmax(w @ x + b)[y], (0, 1)
+      )(
+          self.weights, self.intercepts, x, y
+      )
+      self.weights = self.weights - learningRate * weightsGrad
+      self.intercepts = self.intercepts - learningRate * interceptGrad
 
-  def assessState(self, entries):
-    if self.journalScore == -3:
-      self.currentState = -5
-    elif self.journalScore < 0:
-      longTermState = (self.currentState + 0.2*self.journalScore)/entries
-    else:
-      longTermState = (self.currentState + 0.5*self.journalScore)/entries
-    if longTermState > = 5:
-      self.currentState = 5
-    elif longTermState <= -5:
-      self.currentState = -5
-    else:
-      self.currentState = longTermState
+#  def assessState(self, entries):
+#    if self.journalScore == -3:
+#      self.currentState = -5
+#    elif self.journalScore < 0:
+#      longTermState = (self.currentState + 0.2*self.journalScore)/entries
+#    else:
+#      longTermState = (self.currentState + 0.5)/entries
+#    if longTermState > = 5:
+#      self.currentState = 5
+#    elif longTermState <= -5:
+#      self.currentState = -5
+#    else:
+#      self.currentState = longTermState
 
   def mapInputToRating(self):
     """Map user input on 5 to -5 scale to index scale for our ratings, 0-2

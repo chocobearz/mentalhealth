@@ -28,8 +28,8 @@ args = parser.parse_args()
 
 userInput = int(args.userInput)
 text = args.text
-weights = np.array(json.loads(args.weights))
-intercepts = np.array(json.loads(args.intercepts))
+weights = np.array(json.loads(args.weights), dtype = np.float64)
+intercepts = np.array(json.loads(args.intercepts), dtype = np.float64)
 
 mod = model(weights, intercepts, userInput)
 
