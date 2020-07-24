@@ -22,8 +22,8 @@ exports.getSentimentLabel = (req, res) => {
         dataString += data
         return res.status(200).send({
         label: dataString
-    });
-    }
+        });
+    })
     //runPy(res)
 
 };
