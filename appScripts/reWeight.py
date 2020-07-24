@@ -9,10 +9,6 @@ input'''
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
-  "longTermScore",
-  help="string of journal entry"
-)
-parser.add_argument(
   "text",
   help="string of journal entry"
 )
@@ -30,13 +26,12 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-longTermScore = int(args.longTermScore)
-userInput = (args.userInputScore)
+userInput = int(args.userInput)
 text = args.text
 weights = np.array(json.loads(args.weights))
 intercepts = np.array(json.loads(args.intercepts))
 
-mod = model(weights, intercepts, longTermScore)
+mod = model(weights, intercepts, userInput)
 
 scores = afinnScore(text)
 
@@ -44,10 +39,14 @@ mod.predict(scores)
 
 print(mod.journalScore)
 
-mod.currentState = userInput
+print(mod.currentState)
 
-print(mod.currentStaste)
+print(mod.weights)
 
+mod.reWeight(scores)
 
+print(mod.weights)
 
+mod.predict(scores)
 
+print(mod.journalScore)

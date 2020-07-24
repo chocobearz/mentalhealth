@@ -1,6 +1,6 @@
 from scipy.special import softmax
-#import jax.numpy as np
-#import jax
+import jax.numpy as np
+import jax
 
 class model:
 
@@ -25,7 +25,11 @@ class model:
     none, updates self.jounralScore with the rating for this journal entry
     """
 
-    probs = softmax((self.weights @ scores + self.intercepts))
+    probs = softmax((
+      np.array(self.weights) @ 
+      np.array(scores) + 
+      np.array(self.intercepts)
+    ))
 
     if max(probs) == probs[0]:
       self.journalScore = -3
@@ -34,30 +38,31 @@ class model:
     else:
       self.journalScore = 1
 
-#  def reWeight(self, scores):
-#    """Based on user input update the logsistic model weights using gradient 
-#    descent
-#
-#    Parameters:
-#
-#    scores (list) : list of lexicon scores from a journal entry. Afinn Score,
-#    Emergency Score, Research Score and Abosolutism Score
-#
-#    Returns:
-#
-#    none, updates self.weights and self.intercept
-#    """
-#    learningRate = 0.001
-#
-#    y = mapInputToRating()
-#
-#    weights_grad, intercept_grad = jax.grad(
-#        lambda w, b, x, y : -jax.nn.softmax(w @ x + b)[y], (0, 1)
-#    )(
-#        self.weights, self.intercepts, scores, y
-#    )
-#    self.weights = self.weights - learningRate * weightsGrad
-#    self.intercepts = self.intercepts - learningRate * interceptGrad
+  def reWeight(self, scores):
+    """Based on user input update the logsistic model weights using gradient 
+    descent
+
+    Parameters:
+
+    scores (list) : list of lexicon scores from a journal entry. Afinn Score,
+    Emergency Score, Research Score and Abosolutism Score
+
+    Returns:
+
+    none, updates self.weights and self.intercept
+    """
+    learningRate = 0.01
+
+    y = self.mapInputToRating()
+    x = np.array(scores)
+
+    weightsGrad, interceptGrad = jax.grad(
+        lambda w, b, x, y : -jax.nn.softmax(w @ x + b)[y], (0, 1)
+    )(
+        self.weights, self.intercepts, x, y
+    )
+    self.weights = self.weights - learningRate * weightsGrad
+    self.intercepts = self.intercepts - learningRate * interceptGrad
 
   def assessState(self):
     self.currentState = (self.currentState + self.journalScore)/5
@@ -74,22 +79,9 @@ class model:
     int: mapped state. 0 = crisis, 1 = sad, 2 = happy
     """
 
-    if self.inputState in range(0,6):
+    if self.currentState in range(0,6):
       return 2
-    elif self.inputState in range (-3,-1):
+    elif self.currentState in range (-3,-1):
       return 1
     else:
       return 0
-
-    def __setitem__(self, inputState):
-      """set the current mental state to the user input value
-
-      Parameters:
-
-      userUnput (int): user input mental state score
-
-      Returns:
-
-      None, updates the current long term mental state
-      """
-      self.currentState = inputState
