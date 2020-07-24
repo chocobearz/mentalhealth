@@ -33,7 +33,7 @@ const runPy = async (res) => {
         var options = {
         mode: 'text',
         args: [longTermScore, journalEntry, weights, intercepts],
-        scriptPath: '/appScripts/'
+        scriptPath: path.join(__dirname, 'appScripts/')
         };
 
         const result = await new Promise((resolve, reject) => {
