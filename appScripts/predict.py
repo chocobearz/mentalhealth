@@ -23,6 +23,10 @@ parser.add_argument(
   "intercepts",
   help="current model intercepts"
 )
+parser.add_argument(
+  "entries",
+  help="number of journal entries user had made"
+)
 args = parser.parse_args()
 
 longTermScore = int(args.longTermScore)
@@ -38,6 +42,10 @@ mod.predict(scores)
 
 print(mod.journalScore)
 
-mod.assessState()
+entries += 1
+
+mod.assessState(entries)
 
 print(mod.currentState)
+
+print(entries)
