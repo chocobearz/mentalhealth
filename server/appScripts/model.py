@@ -24,12 +24,13 @@ class model:
 
     none, updates self.jounralScore with the rating for this journal entry
     """
-
+    #probabilities the post belongs to each category
     probs = softmax((
       np.array(self.weights) @ 
       np.array(scores) + 
       np.array(self.intercepts)
     ))
+    #assign to category with maximum probability
     if max(probs) == probs[0]:
       self.journalScore = -3
     elif max(probs) == probs[1]:
@@ -50,15 +51,17 @@ class model:
 
     none, updates self.weights and self.intercept
     """
+    #larger difference in user input and predicted, larger learning rate
     if (self.journalScore == 1 and self.currentState in range(-5,-3)) or (self.journalScore == -3 and self.currentState in range(0,6)):
       learningRate = 0.01
     else:
-      #down to up
       learningRate = 0.001
 
+    #user input mapped to number of classes for model as indexes
     y = self.mapInputToRating()
     x = np.array(scores, dtype = np.float64)
 
+    #run gradient descent for weights adjusting to user input
     for i in range(100):
       weightsGrad, interceptGrad = jax.grad(
           lambda w, b, x, y : -jax.nn.softmax(w @ x + b)[y], (0, 1)
@@ -69,12 +72,17 @@ class model:
       self.intercepts = self.intercepts - learningRate * interceptGrad
 
   def assessState(self):
+    #if is a crisis immediately move to crisis category
     if self.journalScore == -3:
       self.currentState = -5
+      return
+    #take smaller steps in sad direction as -4 and -5 will give bigger steps
     elif self.journalScore < 0:
-      longTermState = (self.currentState + 0.1*self.journalScore)
+      longTermState = (self.currentState - 0.1)
     else:
+    #take a slightly larger step as the entry is always a value of 1 if happy
       longTermState = (self.currentState + 0.2)
+    #if step takes you out of rating bounds set to min or max rating
     if longTermState >= 5:
       self.currentState = 5
     elif longTermState <= -5:
@@ -93,7 +101,6 @@ class model:
 
     int: mapped state. 0 = crisis, 1 = sad, 2 = happy
     """
-
     if self.currentState in range(0,6):
       return 2
     elif self.currentState in range (-3,0):

@@ -31,16 +31,21 @@ text = args.text
 weights = np.array(json.loads(args.weights), dtype = np.float64)
 intercepts = np.array(json.loads(args.intercepts), dtype = np.float64)
 
+#initialize model class
 mod = model(weights, intercepts, userInput)
 
+#get afinn scores for new entry
 scores = afinnScore(text)
 
+#get mental health prediction based on scores
 mod.predict(scores)
 
 print(mod.journalScore)
 
+#current score is set with user input
 print(mod.currentState)
 
+#reweight the model based on the user input to reinforce the learning
 mod.reWeight(scores)
 
 print(mod.weights)
