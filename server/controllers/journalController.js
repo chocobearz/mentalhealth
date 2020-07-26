@@ -192,8 +192,8 @@ const runPredict =  async (res, journalEntry, weights, intercepts, longtermScore
         PythonShell.run('predict.py', options, (err, results) => {
             if (err) console.log(err);
             resolve( {
-                longTermScore: results[0],
-                currentRating: results[1],
+                longTermScore: results[1],
+                currentRating: results[0],
             })
         });
     })
