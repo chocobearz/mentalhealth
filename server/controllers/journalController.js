@@ -44,9 +44,6 @@ exports.getSentimentLabel = (req, res) => {
                 label: ratings.currentRating
             });
         });
-        .finally(r => {
-            client.end()
-        })
     })
     .catch(err => {
         console.error(err);
