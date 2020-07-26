@@ -50,6 +50,9 @@ exports.getSentimentLabel = (req, res) => {
                 console.error(err);
             })
         })
+        .catch(err => {
+            console.error(err);
+        })
     })
     .catch(err => {
         console.error(err);
