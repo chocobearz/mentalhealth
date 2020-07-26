@@ -8,7 +8,7 @@ const getLongtermScoreQuery = `
         SELECT *
         FROM scores
         WHERE user_id = 1
-        ORDER BY date_created DESC
+        ORDER BY created_at DESC
         LIMIT 1
         `;
 
