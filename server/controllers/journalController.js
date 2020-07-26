@@ -11,18 +11,17 @@ const getLongtermScoreQuery = `
         ORDER BY created_at DESC
         LIMIT 1
         `;
+const { Client } = require('pg');
+
+const client = new Client({
+    user: 'cguklksqtupwns',
+    host: 'ec2-34-225-162-157.compute-1.amazonaws.com',
+    database: 'dfqtq6134kl633',
+    password: '39280be31f90ed9bcbc90f1a994cf5244530605c37be84dd7a6c250d3fdc38cd',
+    port: 5432,
+});
 
 exports.submitSentimentLabel = (req, res) => {
-
-    const { Client } = require('pg');
-
-    const client = new Client({
-        user: 'cguklksqtupwns',
-        host: 'ec2-34-225-162-157.compute-1.amazonaws.com',
-        database: 'dfqtq6134kl633',
-        password: '39280be31f90ed9bcbc90f1a994cf5244530605c37be84dd7a6c250d3fdc38cd',
-        port: 5432,
-    });
 
     let weights;
     let intercepts;
@@ -76,16 +75,6 @@ exports.submitSentimentLabel = (req, res) => {
 
 exports.getSentimentLabel = (req, res) => {
 
-    const { Client } = require('pg');
-
-    const client = new Client({
-        user: 'cguklksqtupwns',
-        host: 'ec2-34-225-162-157.compute-1.amazonaws.com',
-        database: 'dfqtq6134kl633',
-        password: '39280be31f90ed9bcbc90f1a994cf5244530605c37be84dd7a6c250d3fdc38cd',
-        port: 5432,
-    });
-
     let weights;
     let intercepts;
 
@@ -99,7 +88,6 @@ exports.getSentimentLabel = (req, res) => {
         intercepts = dbResponse.rows[0].intercepts
         client.query(getLongtermScoreQuery)
             .then(dbResponse => {
-                console.log(dbResponse)
                 longTermScore = dbResponse.rows[0].longterm_score
                 var journalEntry = req.body.journalEntry;
                 runPredict(res, journalEntry, weights, intercepts, longTermScore)
