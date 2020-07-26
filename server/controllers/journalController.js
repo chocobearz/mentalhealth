@@ -109,27 +109,6 @@ exports.getSentimentLabel = (req, res) => {
 };
 
 
-const runReWeight =  async (res, journalEntry, weights, intercepts, userScore) => {
-    return new Promise((resolve, reject) => {
-        var {PythonShell} = require('python-shell') 
-        var options = {
-            mode: 'text',
-            args: [userScore, journalEntry, weights, intercepts],
-            scriptPath: '/app/appScripts/'
-        };
-
-        PythonShell.run('reWeight.py', options, (err, results) => {
-            if (err) console.log(err);
-            resolve( {
-                journalScore: results[0],
-                currentScore: results[1],
-                weights: results[2]
-            })
-        });
-    })
-
-};
-
 exports.reWeightAndGetSentimentLabel = (req, res) => {
 
     let weights;
@@ -159,6 +138,47 @@ exports.reWeightAndGetSentimentLabel = (req, res) => {
     })
     .catch(err => {
         console.error(err);
+    })
+
+};
+
+const runReWeight =  async (res, journalEntry, weights, intercepts, userScore) => {
+    return new Promise((resolve, reject) => {
+        var {PythonShell} = require('python-shell') 
+        var options = {
+            mode: 'text',
+            args: [userScore, journalEntry, weights, intercepts],
+            scriptPath: '/app/appScripts/'
+        };
+
+        PythonShell.run('reWeight.py', options, (err, results) => {
+            if (err) console.log(err);
+            resolve( {
+                journalScore: results[0],
+                currentScore: results[1],
+                weights: results[2]
+            })
+        });
+    })
+
+};
+
+const runPredict =  async (res, journalEntry, weights, intercepts, longtermScore) => {
+    return new Promise((resolve, reject) => {
+        var {PythonShell} = require('python-shell') 
+        var options = {
+            mode: 'text',
+            args: [longtermScore, journalEntry, weights, intercepts],
+            scriptPath: '/app/appScripts/'
+        };
+
+        PythonShell.run('predict.py', options, (err, results) => {
+            if (err) console.log(err);
+            resolve( {
+                longTermScore: results[0],
+                currentScore: results[1],
+            })
+        });
     })
 
 };
