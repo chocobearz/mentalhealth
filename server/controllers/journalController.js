@@ -20,14 +20,13 @@ const client = new Client({
     password: '39280be31f90ed9bcbc90f1a994cf5244530605c37be84dd7a6c250d3fdc38cd',
     port: 5432,
 });
+client.connect();
 
 exports.submitSentimentLabel = (req, res) => {
 
     let weights;
     let intercepts;
     let longTermScore;
-
-    client.connect();
 
     const query2Text = `
         INSERT INTO scores
@@ -77,8 +76,6 @@ exports.getSentimentLabel = (req, res) => {
 
     let weights;
     let intercepts;
-
-    client.connect();
 
 
     client
@@ -140,8 +137,6 @@ exports.reWeightAndGetSentimentLabel = (req, res) => {
 
     let weights;
     let intercepts;
-
-    client.connect();
 
 
     client
