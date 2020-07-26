@@ -13,20 +13,21 @@ const getLongtermScoreQuery = `
         `;
 const { Client } = require('pg');
 
-const client = new Client({
-    user: 'cguklksqtupwns',
-    host: 'ec2-34-225-162-157.compute-1.amazonaws.com',
-    database: 'dfqtq6134kl633',
-    password: '39280be31f90ed9bcbc90f1a994cf5244530605c37be84dd7a6c250d3fdc38cd',
-    port: 5432,
-});
-client.connect();
 
 exports.submitSentimentLabel = (req, res) => {
 
     let weights;
     let intercepts;
     let longTermScore;
+
+    const client = new Client({
+    user: 'cguklksqtupwns',
+    host: 'ec2-34-225-162-157.compute-1.amazonaws.com',
+    database: 'dfqtq6134kl633',
+    password: '39280be31f90ed9bcbc90f1a994cf5244530605c37be84dd7a6c250d3fdc38cd',
+    port: 5432,
+});
+    client.connect();
 
     const query2Text = `
         INSERT INTO scores
@@ -77,6 +78,14 @@ exports.getSentimentLabel = (req, res) => {
     let weights;
     let intercepts;
 
+    const client = new Client({
+        user: 'cguklksqtupwns',
+        host: 'ec2-34-225-162-157.compute-1.amazonaws.com',
+        database: 'dfqtq6134kl633',
+        password: '39280be31f90ed9bcbc90f1a994cf5244530605c37be84dd7a6c250d3fdc38cd',
+        port: 5432,
+    });
+    client.connect();
 
     client
     .query(getUserquery)
@@ -114,6 +123,14 @@ exports.reWeightAndGetSentimentLabel = (req, res) => {
     let weights;
     let intercepts;
 
+    const client = new Client({
+        user: 'cguklksqtupwns',
+        host: 'ec2-34-225-162-157.compute-1.amazonaws.com',
+        database: 'dfqtq6134kl633',
+        password: '39280be31f90ed9bcbc90f1a994cf5244530605c37be84dd7a6c250d3fdc38cd',
+        port: 5432,
+    });
+    client.connect()
 
     client
     .query(getUserquery)
