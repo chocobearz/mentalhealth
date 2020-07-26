@@ -1,6 +1,6 @@
 
 
-export let getSentimentLabel = async (req, res) => {
+exports.getSentimentLabel = (req, res) => {
 
     const { Client } = require('pg');
 
@@ -35,7 +35,7 @@ export let getSentimentLabel = async (req, res) => {
         weights = dbResponse[0].weights
         intercepts = dbResponse[0].intercepts
         var journalEntry = req.body.journalEntry;
-        const ratings = await runPredict(res, journalEntry, weights, intercepts);
+        const ratings =  runPredict(res, journalEntry, weights, intercepts);
         const values = [ratings.longTermScore, ratings.currentRating]
         client
         .query(query2Text, values)
@@ -55,7 +55,7 @@ export let getSentimentLabel = async (req, res) => {
 };
 
 
-const runPredict = async (res, journalEntry, weights, intercepts) => {
+const runPredict =  (res, journalEntry, weights, intercepts) => {
     var {PythonShell} = require('python-shell') 
     var longTermScore = 0;
     //var journalEntry = "Text sample"
