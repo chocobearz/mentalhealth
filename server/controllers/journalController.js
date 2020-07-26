@@ -62,7 +62,7 @@ exports.getSentimentLabel = (req, res) => {
 
 
 const runPredict =  async (res, journalEntry, weights, intercepts) => {
-    return Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         var {PythonShell} = require('python-shell') 
         var longTermScore = 0;
         //var journalEntry = "Text sample"
@@ -82,7 +82,7 @@ const runPredict =  async (res, journalEntry, weights, intercepts) => {
                 longTermScore: results[1]
             })
         });
-        console.log("here2")
+        console.log("here2");
     })
 
 };
