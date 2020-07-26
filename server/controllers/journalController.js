@@ -23,21 +23,31 @@ exports.getSentimentLabel = (req, res) => {
         WHERE user_id = 1
         `;
 
+    const query2Text = `
+        INSERT INTO scores
+        (user_id, longterm_score, current_score)
+        VALUES (1, $1, $2);
+        `;
+
     client
     .query(query)
     .then(dbResponse => {
-        console.log(dbResponse)
         weights = dbResponse[0].weights
         intercepts = dbResponse[0].intercepts
         var journalEntry = req.body.journalEntry;
-        runPredict(res, journalEntry, weights, intercepts)
+        const ratings = await runPredict(res, journalEntry, weights, intercepts);
+        const values = [ratings.longTermScore, ratings.currentRating]
+        client
+        .query(query)
+        .then(dbResponse => {
+            return res.status(200).send({
+                label: ratings.currentRating
+            });
+        });
     })
     .catch(err => {
         console.error(err);
     })
-    .finally(() => {
-        client.end();
-    });
 
 };
 
@@ -48,17 +58,18 @@ const runPredict = async (res, journalEntry, weights, intercepts) => {
     //var journalEntry = "Text sample"
     //var intercepts = "[-1.52631775, 0.20101568, 1.32530206]";
     //var weights = "[[-0.02807738, 0.0393423, -0.85414827, 0.00677817],[-0.02909687, 0.03356314, -0.74487031, 0.00826826],[0.05717426, -0.07290543, 1.59901859, -0.01504643]]";
-        var options = {
+    var options = {
         mode: 'text',
         args: [longTermScore, journalEntry, weights, intercepts],
         scriptPath: '/app/appScripts/'
-        };
+    };
 
-        PythonShell.run('predict.py', options, (err, results) => {
-            if (err) console.log(err);
-            console.log(results)
-            return res.status(200).send({
-                label: results
-            });
-        });
+    PythonShell.run('predict.py', options, (err, results) => {
+        if (err) console.log(err);
+        console.log(results)
+        return {
+            currentRating: results[0],
+            longTermScore: results[1]
+        }
+    });
 };
