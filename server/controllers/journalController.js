@@ -38,12 +38,15 @@ exports.getSentimentLabel = (req, res) => {
         const ratings = await runPredict(res, journalEntry, weights, intercepts);
         const values = [ratings.longTermScore, ratings.currentRating]
         client
-        .query(query)
+        .query(query2Text, values)
         .then(dbResponse => {
             return res.status(200).send({
                 label: ratings.currentRating
             });
         });
+        .finally(r => {
+            client.end()
+        })
     })
     .catch(err => {
         console.error(err);
