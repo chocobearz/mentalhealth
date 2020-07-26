@@ -32,6 +32,7 @@ exports.getSentimentLabel = (req, res) => {
     client
     .query(query)
     .then(dbResponse => {
+        console.log(dbResponse)
         weights = dbResponse[0].weights
         intercepts = dbResponse[0].intercepts
         var journalEntry = req.body.journalEntry;
