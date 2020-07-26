@@ -3,6 +3,7 @@ import argparse
 from afinnScoreApp import afinnScore
 import json
 import numpy as np
+import sys 
 
 '''every 5th journal entry run a prediction and reweight model based on user
 input'''
