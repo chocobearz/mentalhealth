@@ -1,6 +1,6 @@
 
 
-exports.getSentimentLabel = (req, res) => {
+export let getSentimentLabel = async (req, res) => {
 
     const { Client } = require('pg');
 
@@ -69,7 +69,6 @@ const runPredict = async (res, journalEntry, weights, intercepts) => {
 
     PythonShell.run('predict.py', options, (err, results) => {
         if (err) console.log(err);
-        console.log(results)
         return {
             currentRating: results[0],
             longTermScore: results[1]
