@@ -4,5 +4,6 @@ module.exports = (app) => {
 
     app.post('/journal/getSentimentLabel', journalController.getSentimentLabel);
     app.post('/journal/submitSentimentLabel', journalController.submitSentimentLabel);
+    app.post('/journal/reWeightAndGetSentimentLabel', journalController.reWeightAndGetSentimentLabel);
     
 }

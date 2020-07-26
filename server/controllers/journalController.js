@@ -112,7 +112,7 @@ exports.getSentimentLabel = (req, res) => {
 };
 
 
-const runPredict =  async (res, journalEntry, weights, intercepts, longTermScore) => {
+const runReWeight =  async (res, journalEntry, weights, intercepts, userScore) => {
     return new Promise((resolve, reject) => {
         var {PythonShell} = require('python-shell') 
         //var journalEntry = "Text sample"
@@ -120,17 +120,51 @@ const runPredict =  async (res, journalEntry, weights, intercepts, longTermScore
         //var weights = "[[-0.02807738, 0.0393423, -0.85414827, 0.00677817],[-0.02909687, 0.03356314, -0.74487031, 0.00826826],[0.05717426, -0.07290543, 1.59901859, -0.01504643]]";
         var options = {
             mode: 'text',
-            args: [longTermScore, journalEntry, weights, intercepts],
+            args: [userScore, journalEntry, weights, intercepts],
             scriptPath: '/app/appScripts/'
         };
 
-        PythonShell.run('predict.py', options, (err, results) => {
+        PythonShell.run('reWeight.py', options, (err, results) => {
             if (err) console.log(err);
             resolve( {
-                currentRating: results[0],
-                longTermScore: results[1]
+                journalScore: results[0],
+                currentScore: results[1],
+                weights: results[2]
             })
         });
+    })
+
+};
+
+exports.reWeightAndGetSentimentLabel = (req, res) => {
+
+    let weights;
+    let intercepts;
+
+    client.connect();
+
+
+    client
+    .query(getUserquery)
+    .then(dbResponse => {
+        weights = dbResponse.rows[0].weights
+        intercepts = dbResponse.rows[0].intercepts
+                var journalEntry = req.body.journalEntry;
+                var journalEntry = req.body.userScore;
+                runReWeight(res, journalEntry, weights, intercepts, userScore)
+                .then(results => {
+                return res.status(200).send({
+                    currentScore: results.currentScore,
+                    journalScore: results.journalScore,
+                    weights: results.weights
+                });
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    })
+    .catch(err => {
+        console.error(err);
     })
 
 };
