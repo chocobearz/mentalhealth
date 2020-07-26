@@ -6,7 +6,7 @@ const getUserquery = `
 
 const getLongtermScoreQuery = `
         SELECT *
-        FROM user_scores
+        FROM scores
         WHERE user_id = 1
         ORDER BY date_created DESC
         LIMIT 1
@@ -137,13 +137,11 @@ const runPredict =  async (res, journalEntry, weights, intercepts, longTermScore
 
         PythonShell.run('predict.py', options, (err, results) => {
             if (err) console.log(err);
-            console.log("here")
             resolve( {
                 currentRating: results[0],
                 longTermScore: results[1]
             })
         });
-        console.log("here2");
     })
 
 };
