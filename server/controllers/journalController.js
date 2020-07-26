@@ -102,7 +102,7 @@ exports.getSentimentLabel = (req, res) => {
                 console.log(dbResponse)
                 longTermScore = dbResponse.rows[0].longterm_score
                 var journalEntry = req.body.journalEntry;
-                runPredict(res, journalEntry, weights, intercepts, longterm_score)
+                runPredict(res, journalEntry, weights, intercepts, longTermScore)
                 .then(ratings => {
                 const values = [ratings.longTermScore, ratings.currentRating]
                 return res.status(200).send({
