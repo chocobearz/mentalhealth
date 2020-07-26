@@ -112,9 +112,6 @@ exports.getSentimentLabel = (req, res) => {
 const runReWeight =  async (res, journalEntry, weights, intercepts, userScore) => {
     return new Promise((resolve, reject) => {
         var {PythonShell} = require('python-shell') 
-        //var journalEntry = "Text sample"
-        //var intercepts = "[-1.52631775, 0.20101568, 1.32530206]";
-        //var weights = "[[-0.02807738, 0.0393423, -0.85414827, 0.00677817],[-0.02909687, 0.03356314, -0.74487031, 0.00826826],[0.05717426, -0.07290543, 1.59901859, -0.01504643]]";
         var options = {
             mode: 'text',
             args: [userScore, journalEntry, weights, intercepts],
@@ -146,6 +143,7 @@ exports.reWeightAndGetSentimentLabel = (req, res) => {
         intercepts = dbResponse.rows[0].intercepts
                 var journalEntry = req.body.journalEntry;
                 var userScore = req.body.userScore;
+                console.log("userScoree: " + userScore)
                 runReWeight(res, journalEntry, weights, intercepts, userScore)
                 .then(results => {
                 return res.status(200).send({
