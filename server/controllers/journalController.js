@@ -140,7 +140,7 @@ exports.reWeightAndGetSentimentLabel = (req, res) => {
                 var journalEntry = req.body.journalEntry;
                 var userScore = req.body.userScore;
                 console.log("userScoree: " + userScore)
-                console.log("body: " + req.body)
+                console.log("body: " + JSON.stringify(req.body)
                 runReWeight(res, journalEntry, weights, intercepts, userScore)
                 .then(results => {
                 return res.status(200).send({
@@ -193,7 +193,7 @@ const runPredict =  async (res, journalEntry, weights, intercepts, longtermScore
             if (err) console.log(err);
             resolve( {
                 longTermScore: results[0],
-                currentScore: results[1],
+                currentRating: results[1],
             })
         });
     })
