@@ -99,6 +99,7 @@ exports.getSentimentLabel = (req, res) => {
         intercepts = dbResponse.rows[0].intercepts
         client.query(getLongtermScoreQuery)
             .then(dbResponse => {
+                console.log(dbResponse)
                 longTermScore = dbResponse.rows[0].longterm_score
                 var journalEntry = req.body.journalEntry;
                 runPredict(res, journalEntry, weights, intercepts, longterm_score)
