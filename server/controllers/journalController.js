@@ -82,6 +82,7 @@ const runPredict =  async (res, journalEntry, weights, intercepts) => {
                 longTermScore: results[1]
             })
         });
+        console.log("here2")
     })
 
 };
