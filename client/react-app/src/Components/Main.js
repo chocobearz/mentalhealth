@@ -11,7 +11,7 @@ export class Main extends React.Component<Props, State> {
     this.state = {
       navPage: "Journal",
       userId: 1,
-      openAnalysisTab: true
+      openAnalysisTab: false
     }
   }
 
