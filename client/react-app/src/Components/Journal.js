@@ -67,7 +67,6 @@ export class Journal extends React.Component<Props, State> {
       (value) => { 
         for (let i in value.entities) {
           if (0.2 < value.entities[i].salience &&  value.entities[i].salience < 0.7)
-            console.log(value.entities[i].name)
             entityList.push(value.entities[i].name)
         }
         console.log("entityList: " + entityList)
