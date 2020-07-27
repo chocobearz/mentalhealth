@@ -4,6 +4,8 @@ import {colors} from "../colors"
 import {Nav} from "./Nav/Nav"
 import {Journal} from "./Journal"
 import {Support} from "./Support/Support"
+const logo = require('./IW.png')
+
 export class Main extends React.Component<Props, State> {
 
   constructor(props) {
@@ -26,6 +28,7 @@ export class Main extends React.Component<Props, State> {
   render() {
    return (
     <div style={styles.base}>
+      <img src={logo} />
       <Nav changeNavPage={this.changeNavPage} toggleOpenAnalysisTab={this.toggleOpenAnalysisTab}/>
       <h2>{this.state.navPage}</h2>
         {this.state.navPage == "Journal" && <Journal userId={this.state.userId} openAnalysisTab={this.state.openAnalysisTab}/>}

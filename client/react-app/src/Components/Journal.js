@@ -69,6 +69,7 @@ export class Journal extends React.Component<Props, State> {
           if (0.3 < value.entities[i].salience &&  value.entities[i].salience < 0.7)
             entityList.push(value.entities[i].name)
         }
+        console.log(entityList)
         this.setState({entities: entityList})
       },
       (error) => {
@@ -111,13 +112,12 @@ export class Journal extends React.Component<Props, State> {
 
 
   render() {
-    let entityList = this.state.entities.toString()
     let weights = this.state.weights.toString()
     let action = ''
-    if (this.state.label == 0) {
-      action = "No action"
+    if (this.state.label == 1) {
+      action = "Provide positive reinforcement message"
     } 
-    if (this.state.label == -2) {
+    if (this.state.label == -1) {
       action = "Contact first level support. Suggest self-care activity"
     } 
     if (this.state.label == -3) {
@@ -150,7 +150,7 @@ export class Journal extends React.Component<Props, State> {
                 <ListItemText primary={"Sentiment Label: " + this.state.label} />
               </ListItem>
               <ListItem>
-                <ListItemText primary={"Sentiment Entities: " + this.state.entityList} />
+                <ListItemText primary={"Sentiment Entities: " + this.state.entities.toString()} />
               </ListItem>
               <Divider/>
               <ListItem>
