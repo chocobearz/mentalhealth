@@ -8,8 +8,6 @@ const cors=require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var favicon = require('serve-favicon');
-
 const { Pool } = require('pg');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL ,
@@ -35,7 +33,6 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 require('./routes/journal.js')(app);
 
-app.use(favicon(__dirname + '/favicon.png'));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
