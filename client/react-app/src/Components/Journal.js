@@ -10,6 +10,10 @@ import Divider from '@material-ui/core/Divider';
 import ReWeightDialog from "./ReWeightDialog"
 import {getSentimentLabel, getSentimentEntities, reweight} from "../Requests/journalRequests"
 import {colors} from "../colors"
+
+const WAIT_INTERVAL = 1000;
+const ENTER_KEY = 13;
+
 export class Journal extends React.Component<Props, State> {
 
   constructor(props) {
@@ -27,8 +31,30 @@ export class Journal extends React.Component<Props, State> {
     }
   }
 
-  textFieldChange = (event) => {
-    this.setState({journalEntry: event.target.value})
+  componentDidMount() {
+        this.timer = null;
+    }
+
+  handleChange = (event) => {
+        clearTimeout(this.timer);
+
+        this.setState({journalEntry: event.target.value});
+
+        this.timer = setTimeout(this.triggerChange, WAIT_INTERVAL);
+    }
+
+    handleKeyDown = (e) =>{
+        if (e.keyCode === ENTER_KEY) {
+            this.triggerChange();
+        }
+    }
+
+    triggerChange = () => {
+        this.textFieldChange();
+    }
+
+  textFieldChange = () => {
+    //this.setState({journalEntry: event.target.value})
     this.fetchJournalScore()
     this.fetchJournalEntities()
 
@@ -108,7 +134,7 @@ export class Journal extends React.Component<Props, State> {
             variant="outlined"
             style= {styles.journal}
             rows={25}
-            onChange={this.textFieldChange}
+            onChange={this.handleChange}
           />
           <Button style={styles.buttonStyle} variant="contained" color="primary">
             Submit
