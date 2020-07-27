@@ -10,7 +10,8 @@ export class Main extends React.Component<Props, State> {
     super(props);
     this.state = {
       navPage: "Journal",
-      userId: 1
+      userId: 1,
+      openAnalysisTab: true
     }
   }
 
@@ -18,13 +19,16 @@ export class Main extends React.Component<Props, State> {
     this.setState({navPage: selectedPage})
   }
 
+  toggleOpenAnalysisTab = () => {
+    this.setState({openAnalysisTab: !this.state.openAnalysisTab})
+  }
 
   render() {
    return (
     <div style={styles.base}>
-      <Nav changeNavPage={this.changeNavPage}/>
+      <Nav changeNavPage={this.changeNavPage} toggleOpenAnalysisTab={this.toggleOpenAnalysisTab}/>
       <h2>{this.state.navPage}</h2>
-        {this.state.navPage == "Journal" && <Journal userId={this.state.userId}/>}
+        {this.state.navPage == "Journal" && <Journal userId={this.state.userId} openAnalysisTab={this.state.openAnalysisTab}/>}
         {this.state.navPage == "Support Network" && <Support userId={this.state.userId}/>}
     </div>)
     }

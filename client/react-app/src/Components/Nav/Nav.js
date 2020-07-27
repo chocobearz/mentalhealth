@@ -33,6 +33,11 @@ export class Nav extends React.Component<Props, State> {
     this.setState({navOpen: false})
   }
 
+  toggleAnalysis = () => {
+    this.props.toggleOpenAnalysisTab()
+    this.setState({navOpen: false})
+  }
+
   render() {
    return (
       <div style={styles.navWrapper}>
@@ -44,7 +49,7 @@ export class Nav extends React.Component<Props, State> {
         </List>
         <Divider/>
         <List>
-          <NavListItem id="Analysis" text="Text Analysis" onNavClick={this.onNavClick} icon={<AssignmentIcon />}/>
+          <NavListItem id="Analysis" text="Text Analysis" onNavClick={this.toggleAnalysis} icon={<AssignmentIcon />}/>
         </List>
         </Drawer>
       </div>)

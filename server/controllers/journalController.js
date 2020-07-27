@@ -139,8 +139,6 @@ exports.reWeightAndGetSentimentLabel = (req, res) => {
         intercepts = dbResponse.rows[0].intercepts
                 var journalEntry = req.body.journalEntry;
                 var userScore = req.body.userScore;
-                console.log("userScoree: " + userScore)
-                console.log("body: " + JSON.stringify(req.body))
                 runReWeight(res, journalEntry, weights, intercepts, userScore)
                 .then(results => {
                 return res.status(200).send({
