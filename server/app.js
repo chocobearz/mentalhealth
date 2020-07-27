@@ -8,6 +8,7 @@ const cors=require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var favicon = require('serve-favicon');
 
 const { Pool } = require('pg');
 const pool = new Pool({
@@ -33,8 +34,6 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'build')));
 
 require('./routes/journal.js')(app);
-
-var favicon = require('serve-favicon');
 
 app.use(favicon(__dirname + '/favicon.png'));
 
