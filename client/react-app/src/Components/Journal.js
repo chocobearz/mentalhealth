@@ -161,7 +161,7 @@ export class Journal extends React.Component<Props, State> {
                 <ListItemText primary={"Weights: " + this.state.weights} />
               </ListItem>
               <ListItem>
-                <ListItemText primary={"Journal Calculated Score: " + this.statecalculatedScore}/>
+                <ListItemText primary={"Journal Calculated Score: " + this.state.calculatedScore}/>
               </ListItem>
               <ListItem>
                 <ListItemText primary={"Personal Rated Score:" + this.state.personalRatedScore } />
