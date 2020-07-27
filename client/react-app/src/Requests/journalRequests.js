@@ -1,4 +1,4 @@
-const apiURL = "https://mental-health-node-app.herokuapp.com"
+const apiURL = "https://ink-well.herokuapp.com"
 //const apiURL = "https://localhost:3030"
 const googleAPIURL =   "https://language.googleapis.com/v1/documents:analyzeEntities"
 export async function getSentimentLabel(journalEntry) {
