@@ -28,7 +28,6 @@ export class Main extends React.Component<Props, State> {
   render() {
    return (
     <div style={styles.base}>
-      <img src={logo} />
       <Nav changeNavPage={this.changeNavPage} toggleOpenAnalysisTab={this.toggleOpenAnalysisTab}/>
       <h2>{this.state.navPage}</h2>
         {this.state.navPage == "Journal" && <Journal userId={this.state.userId} openAnalysisTab={this.state.openAnalysisTab}/>}
