@@ -34,6 +34,10 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 require('./routes/journal.js')(app);
 
+var favicon = require('serve-favicon');
+
+app.use(favicon(__dirname + '/favicon.png'));
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
