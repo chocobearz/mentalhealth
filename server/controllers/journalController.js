@@ -173,10 +173,11 @@ exports.sendSMS = (req, res) => {
          from: '+17784019789',
          to: '+12506612842'
        })
-      .then(
-        message => console.log(message.sid)
+      .then(message => {
+        console.log(message.sid)
         res.status(200).send({
         });
+        }
     );
 
 };
