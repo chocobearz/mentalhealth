@@ -80,7 +80,7 @@ export class Journal extends React.Component<Props, State> {
   fetchJournalScore = () => {
      getSentimentLabel(this.state.journalEntry).then(
       (value) => { 
-        this.setState({label: value.label})
+        this.setState({label: value.label, longtermScore: value.longtermScore})
       },
       (error) => {
       }
@@ -88,6 +88,13 @@ export class Journal extends React.Component<Props, State> {
   }
 
   onRatingChange = (event, value) => {
+    if(value > 0) {
+      this.setState({ratingLabel: "happy"})
+    } else if (value < -3) {
+      this.setState({ratingLabel: "sad"})
+    } else {
+      this.setState({ratingLabel: "crisis"})
+    }
     this.setState({ratingValue: value})
   }
 
@@ -108,12 +115,23 @@ export class Journal extends React.Component<Props, State> {
     )
   }
 
+  getSentimentScoreLabel = (score) => {
+    if(score => 0) {
+      return "happy"
+    } else if (score < -3) {
+      return "sad"
+    } else {
+      return "crisis"
+    }
+  }
 
 
 
   render() {
     let weights = this.state.weights.toString()
     let action = ''
+    let sentimentScoreLabel = getSentimentLabel(this.state.label)
+    let calculatedScoreLabel = getSentimentLabel(this.state.calculatedScore)
     if (this.state.label == 1) {
       action = "Provide positive reinforcement message"
     } 
@@ -147,7 +165,7 @@ export class Journal extends React.Component<Props, State> {
           <Paper elevation={0} variant="outlined" style={styles.analysis}>
             <List>
               <ListItem>
-                <ListItemText primary={"Sentiment Label: " + this.state.label} />
+                <ListItemText primary={"Sentiment Label: " + sentimentScoreLabel} />
               </ListItem>
               <ListItem>
                 <ListItemText primary={"Sentiment Entities: " + this.state.entities.toString()} />
@@ -161,10 +179,10 @@ export class Journal extends React.Component<Props, State> {
                 <ListItemText primary={"Weights: " + this.state.weights} />
               </ListItem>
               <ListItem>
-                <ListItemText primary={"Journal Calculated Score: " + this.state.calculatedScore}/>
+                <ListItemText primary={"Journal Calculated Score: " + this.state.calculatedScoreLabel}/>
               </ListItem>
               <ListItem>
-                <ListItemText primary={"Personal Rated Score:" + this.state.personalRatedScore } />
+                <ListItemText primary={"Personal Rated Score:" + this.state.ratingValue } />
               </ListItem>
             </List>
           </Paper>

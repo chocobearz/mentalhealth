@@ -51,6 +51,7 @@ exports.submitSentimentLabel = (req, res) => {
                     .query(query2Text, values)
                     .then(dbResponse => {
                         console.log(dbResponse)
+                        client.end()
                         return res.status(200).send({
                             label: ratings.currentRating
                         });
@@ -99,8 +100,10 @@ exports.getSentimentLabel = (req, res) => {
                 runPredict(res, journalEntry, weights, intercepts, longTermScore)
                 .then(ratings => {
                 const values = [ratings.longTermScore, ratings.currentRating]
+                client.end()
                 return res.status(200).send({
-                    label: ratings.currentRating
+                    label: ratings.currentRating,
+                    longtermScore: longtermScore
                 });
             })
             .catch(err => {
@@ -142,11 +145,12 @@ exports.reWeightAndGetSentimentLabel = (req, res) => {
                 runReWeight(res, journalEntry, weights, intercepts, userScore)
                 .then(results => {
                     console.log(results)
-                return res.status(200).send({
-                    currentScore: results.currentScore,
-                    journalScore: results.journalScore,
-                    weights: results.weights
-                });
+                    client.end()
+                    return res.status(200).send({
+                        currentScore: results.currentScore,
+                        journalScore: results.journalScore,
+                        weights: results.weights
+                    });
             })
             .catch(err => {
                 console.error(err);
