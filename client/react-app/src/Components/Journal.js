@@ -8,6 +8,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import ReWeightDialog from "./ReWeightDialog"
+import Datavis from "./Datavis/Datavis"
 import {getSentimentLabel, getSentimentEntities, submitSentimentLabel, reweight, sendSMS} from "../Requests/journalRequests"
 import {colors} from "../colors"
 
@@ -31,7 +32,13 @@ export class Journal extends React.Component<Props, State> {
       calculatedScore: '',
       calculatedText: '',
       loadingReweight: false,
-      loadingFetch: false
+      loadingFetch: false,
+      data: [
+        {date: '20/07/2020', longTermScore: -1, currentScore: 1},
+        {date: '22/07/2020', longTermScore: 1, currentScore: 1},
+        {date: '23/07/2020', longTermScore: -5, currentScore: -3},
+        {date: '25/07/2020', longTermScore: -3, currentScore: 1}
+      ]
 
     }
   }
@@ -108,6 +115,10 @@ export class Journal extends React.Component<Props, State> {
           sendSMS()
         }
         this.setState({label: value.label, longtermScore: value.longtermScore})
+        let datapoint = {date: '28/07/2020', longTermScore: Math.round(value.longtermScore), currentScore: value.label}
+        let data = this.state.data
+        data.push(datapoint)
+        this.setState({data: data})
       },
       (error) => {
       })
@@ -115,22 +126,22 @@ export class Journal extends React.Component<Props, State> {
 
   onRatingChange = (event, value) => {
     switch(value) {
-      case 0: 
+      case 1: 
         this.setState({ratingLabel: "crisis"})
         this.setState({ratingValue: -4})
-      case 1: 
-        this.setState({ratingLabel: "sad"})
-        this.setState({ratingValue: -3})
       case 2: 
         this.setState({ratingLabel: "sad"})
-        this.setState({ratingValue: -1})
+        this.setState({ratingValue: -3})
       case 3: 
         this.setState({ratingLabel: "sad"})
-        this.setState({ratingValue: 0})
+        this.setState({ratingValue: -1})
       case 4: 
+        this.setState({ratingLabel: "sad"})
+        this.setState({ratingValue: 0})
+      case 5: 
         this.setState({ratingLabel: "happy"})
         this.setState({ratingValue: 1})
-      case 5: 
+      case 6: 
         this.setState({ratingLabel: "happy"})
         this.setState({ratingValue: 3})
     }
@@ -222,6 +233,7 @@ export class Journal extends React.Component<Props, State> {
               </ListItem>
             </List>
           </Paper>
+            <Datavis data={this.state.data}/>
           <ReWeightDialog dialogOpen={this.state.dialogOpen} onSubmit={this.fetchReWeight} onRatingChange={this.onRatingChange}/>
         </div>}
       </div>)

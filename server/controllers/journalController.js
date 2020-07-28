@@ -170,7 +170,7 @@ exports.sendSMS = (req, res) => {
 
     client.messages
       .create({
-         body: 'From inkWell: Hey, Aldyn is having a rough day. It might be nice to check in on her',
+         body: 'From inkWell: Hey, Ella is having a rough day. It might be nice to check in on them',
          from: '+17784019789',
          to: '+12506612842'
        })

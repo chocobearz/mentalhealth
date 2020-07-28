@@ -9,7 +9,7 @@ export class Support extends React.Component<Props, State> {
 
 
   render() {
-    const supportersList = [{id: 12, name: "Jesse Elm", phonenumber: "1234567890", supportlevel: 3}, {id: 4, name: "Mom", phonenumber: "1234567890", supportlevel: 1}, {id: 5, name: "Casey", phonenumber: "1234567890", supportlevel: 1}]
+    const supportersList = [{id: 12, name: "Aldyn C", phonenumber: "2506743362", supportlevel: 3}, {id: 4, name: "Mom", phonenumber: "1234567890", supportlevel: 1}, {id: 5, name: "Casey", phonenumber: "1234567890", supportlevel: 1}]
 
     let supporters = (supportersList).map((supporter, i) =>
     <Supporter  name={supporter.name} index={i} key={i} id={supporter.id} phonenumber={supporter.phonenumber}/>

@@ -35,6 +35,7 @@ export default function ReWeightDialog(props) {
         </DialogContent>
         <Box component="fieldset" mb={3} borderColor="transparent">
           <Rating
+            max={6}
             onChange={props.onRatingChange}
             classes={{
               iconFilled: classes.iconFilled,
@@ -85,28 +86,28 @@ const styles = {
 }
 
 const customIcons = {
-        0: {
+        1: {
           icon: <MoodBadIcon />,
           label: 'Very Very Dissatisfied',
         },
-        1: {
+        2: {
           icon: <SentimentVeryDissatisfiedIcon />,
           label: 'Very Dissatisfied',
         },
-        2: {
+        3: {
           icon: <SentimentDissatisfiedIcon />,
           label: 'Dissatisfied',
         },
-        3: {
+        4: {
           icon: <SentimentSatisfiedIcon />,
           label: 'Neutral',
         },
-        4: {
+        5: {
           icon: <SentimentSatisfiedAltIcon />,
           label: 'Satisfied',
         },
-        5: {
+        6: {
           icon: <SentimentVerySatisfiedIcon />,
           label: 'Very Satisfied',
-        },
-      };
+        }
+    };
