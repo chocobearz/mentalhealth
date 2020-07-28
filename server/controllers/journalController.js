@@ -45,7 +45,7 @@ exports.submitSentimentLabel = (req, res) => {
                 longTermScore = dbResponse.rows[0].longterm_score
                 var journalEntry = req.body.journalEntry;
                 runPredict(res, journalEntry, weights, intercepts, longTermScore)
-                .then(ratings => {
+                .then(ratings                                           => {
                     const values = [ratings.longTermScore, ratings.currentRating]
                     client
                     .query(query2Text, values)
@@ -159,6 +159,25 @@ exports.reWeightAndGetSentimentLabel = (req, res) => {
     .catch(err => {
         console.error(err);
     })
+
+};
+
+exports.sendSMS = (req, res) => {
+    const accountSid = 'ACfec2ddb2e51c57dc3ae30b810d697a47';
+    const authToken = '185732583c329a9efacc104827bc3eb3';
+    const client = require('twilio')(accountSid, authToken);
+
+    client.messages
+      .create({
+         body: 'From inkWell: Hey, Aldyn is having as rough day. It might be nice to check in on her',
+         from: '+17784019789',
+         to: '+12506612842'
+       })
+      .then(
+        message => console.log(message.sid)
+        res.status(200).send({
+        });
+    );
 
 };
 
