@@ -21,12 +21,14 @@ export class Journal extends React.Component<Props, State> {
     this.state = {
       journalEntry: "",
       label: 0,
+      labelText: "",
       entities: [],
       weights: [],
       ratingValue: 3,
       dialogOpen: false,
       personalRatedScore: '',
       calculatedScore: '',
+      calculatedText: '',
       loadingReweight: false
 
     }
@@ -81,7 +83,14 @@ export class Journal extends React.Component<Props, State> {
   fetchJournalScore = () => {
      getSentimentLabel(this.state.journalEntry).then(
       (value) => { 
-        this.setState({label: value.label, longtermScore: value.longtermScore})
+        if(value.label > 0) {
+          this.setState({calculatedText: "happy"})
+        } else if (value < -3) {
+          this.setState({calculatedText: "sad"})
+        } else {
+          this.setState({calculatedText: "crisis"})
+        }
+            this.setState({label: value.label, longtermScore: value.longtermScore})
       },
       (error) => {
       }
@@ -120,6 +129,13 @@ export class Journal extends React.Component<Props, State> {
     this.setState({loadingReweight: true})
     reweight(this.state.journalEntry, this.state.ratingValue).then(
       (value) => { 
+        if(value.journalScore > 0) {
+          this.setState({labelText: "happy"})
+        } else if (value < -3) {
+          this.setState({labelText: "sad"})
+        } else {
+          this.setState({labelText: "crisis"})
+        }
         this.setState({personalRatedScore: value.currentScore})
         this.setState({calculatedScore: value.journalScore})
         this.setState({weights: value.weights})
@@ -130,23 +146,12 @@ export class Journal extends React.Component<Props, State> {
     )
   }
 
-  getSentimentScoreLabel = (score) => {
-    if(score => 0) {
-      return "happy"
-    } else if (score < -3) {
-      return "sad"
-    } else {
-      return "crisis"
-    }
-  }
 
 
 
   render() {
     let weights = this.state.weights.toString()
     let action = ''
-    let sentimentScoreLabel = getSentimentLabel(this.state.label)
-    let calculatedScoreLabel = getSentimentLabel(this.state.calculatedScore)
     if (this.state.label == 1) {
       action = "Provide positive reinforcement message"
     } 
@@ -180,7 +185,7 @@ export class Journal extends React.Component<Props, State> {
           <Paper elevation={0} variant="outlined" style={styles.analysis}>
             <List>
               <ListItem>
-                <ListItemText primary={"Sentiment Label: " + sentimentScoreLabel} />
+                <ListItemText primary={"Sentiment Label: " + this.state.labelText} />
               </ListItem>
               <ListItem>
                 <ListItemText primary={"Sentiment Entities: " + this.state.entities.toString()} />
@@ -191,13 +196,13 @@ export class Journal extends React.Component<Props, State> {
               </ListItem>
               <Divider/>
               <ListItem>
-                <ListItemText primary={this.state.loadingReweight? ("Weights: " + this.state.weights) : "Loading..."} />
+                <ListItemText primary={!this.state.loadingReweight? ("Weights: " + this.state.weights) : "Loading..."} />
               </ListItem>
               <ListItem>
-                <ListItemText primary={this.state.loadingReweight? ("Journal Calculated Score: " + this.state.calculatedScoreLabel) : "Loading..."}/>
+                <ListItemText primary={!this.state.loadingReweight? ("Journal Calculated Score: " + this.state.calculatedText) : "Loading..."}/>
               </ListItem>
               <ListItem>
-                <ListItemText primary={this.state.loadingReweight?  ("Personal Rated Score:" + this.state.ratingValue) : "Loading..."} />
+                <ListItemText primary={!this.state.loadingReweight?  ("Personal Rated Score:" + this.state.ratingValue) : "Loading..."} />
               </ListItem>
             </List>
           </Paper>
