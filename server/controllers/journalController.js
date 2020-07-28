@@ -53,7 +53,8 @@ exports.submitSentimentLabel = (req, res) => {
                         console.log(dbResponse)
                         client.end()
                         return res.status(200).send({
-                            label: ratings.currentRating
+                            label: ratings.currentRating,
+                            longtermScore: ratings.longTermScore
                         });
                     })
                     .catch(err => {
@@ -103,7 +104,7 @@ exports.getSentimentLabel = (req, res) => {
                 client.end()
                 return res.status(200).send({
                     label: ratings.currentRating,
-                    longtermScore: longtermScore
+                    longtermScore: ratings.longTermScore
                 });
             })
             .catch(err => {
@@ -169,7 +170,7 @@ exports.sendSMS = (req, res) => {
 
     client.messages
       .create({
-         body: 'From inkWell: Hey, Aldyn is having as rough day. It might be nice to check in on her',
+         body: 'From inkWell: Hey, Aldyn is having a rough day. It might be nice to check in on her',
          from: '+17784019789',
          to: '+12506612842'
        })

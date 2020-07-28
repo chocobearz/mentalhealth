@@ -8,7 +8,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import ReWeightDialog from "./ReWeightDialog"
-import {getSentimentLabel, getSentimentEntities, reweight} from "../Requests/journalRequests"
+import {getSentimentLabel, getSentimentEntities, submitSentimentLabel, reweight, sendSMS} from "../Requests/journalRequests"
 import {colors} from "../colors"
 
 const WAIT_INTERVAL = 1000;
@@ -26,7 +26,8 @@ export class Journal extends React.Component<Props, State> {
       ratingValue: 3,
       dialogOpen: false,
       personalRatedScore: '',
-      calculatedScore: ''
+      calculatedScore: '',
+      loadingReweight: false
 
     }
   }
@@ -87,6 +88,18 @@ export class Journal extends React.Component<Props, State> {
     )
   }
 
+  onSubmitRating = () => {
+    submitSentimentLabel(this.state.journalEntry).then(
+      (value) => { 
+        if(value.label == -3) {
+          sendSMS()
+        }
+        this.setState({label: value.label, longtermScore: value.longtermScore})
+      },
+      (error) => {
+      })
+  }
+
   onRatingChange = (event, value) => {
     if(value > 0) {
       this.setState({ratingLabel: "happy"})
@@ -103,12 +116,14 @@ export class Journal extends React.Component<Props, State> {
   }
 
   fetchReWeight = () => {
+    this.setState({dialogOpen: false})
+    this.setState({loadingReweight: true})
     reweight(this.state.journalEntry, this.state.ratingValue).then(
       (value) => { 
-        this.setState({dialogOpen: false})
         this.setState({personalRatedScore: value.currentScore})
         this.setState({calculatedScore: value.journalScore})
         this.setState({weights: value.weights})
+        this.setState({loadingReweight: false})
       },
       (error) => {
       }
@@ -154,7 +169,7 @@ export class Journal extends React.Component<Props, State> {
             rows={25}
             onChange={this.handleChange}
           />
-          <Button style={styles.buttonStyle} variant="contained" color="primary">
+          <Button onClick={this.onSubmitRating} style={styles.buttonStyle} variant="contained" color="primary">
             Submit
           </Button>
           {this.props.openAnalysisTab &&<Button onClick={this.openDialog} style={styles.buttonStyle} variant="contained" color="primary">
@@ -176,13 +191,13 @@ export class Journal extends React.Component<Props, State> {
               </ListItem>
               <Divider/>
               <ListItem>
-                <ListItemText primary={"Weights: " + this.state.weights} />
+                <ListItemText primary={this.state.loadingReweight? ("Weights: " + this.state.weights) : "Loading..."} />
               </ListItem>
               <ListItem>
-                <ListItemText primary={"Journal Calculated Score: " + this.state.calculatedScoreLabel}/>
+                <ListItemText primary={this.state.loadingReweight? ("Journal Calculated Score: " + this.state.calculatedScoreLabel) : "Loading..."}/>
               </ListItem>
               <ListItem>
-                <ListItemText primary={"Personal Rated Score:" + this.state.ratingValue } />
+                <ListItemText primary={this.state.loadingReweight?  ("Personal Rated Score:" + this.state.ratingValue) : "Loading..."} />
               </ListItem>
             </List>
           </Paper>

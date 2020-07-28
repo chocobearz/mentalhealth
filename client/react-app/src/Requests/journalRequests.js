@@ -83,3 +83,52 @@ export async function reweight(journalEntry, ratedScore) {
     throw new Error(error.message);
   }
 }
+
+export async function sendSMS() {
+  try {
+    let response: any = await fetch(apiURL + "/journal/sendSMS", {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+    let responseJson = await response.json();
+    if(response.ok) {
+      return responseJson;
+    } else if (!responseJson.message) {
+      throw new Error("Something went wrong")
+    } else {
+      throw new Error(responseJson.message)
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+export async function submitSentimentLabel(journalEntry) {
+  try {
+    let response: any = await fetch(apiURL + "/journal/submitSentimentLabel", {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "journalEntry": journalEntry,
+    }),
+  });
+    let responseJson = await response.json();
+    if(response.ok) {
+      return responseJson;
+    } else if (!responseJson.message) {
+      throw new Error("Something went wrong")
+    } else {
+      throw new Error(responseJson.message)
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
