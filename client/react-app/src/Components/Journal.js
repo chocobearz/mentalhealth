@@ -115,7 +115,7 @@ export class Journal extends React.Component<Props, State> {
           sendSMS()
         }
         this.setState({label: value.label, longtermScore: value.longtermScore})
-        let datapoint = {date: '28/07/2020', longTermScore: Math.round(value.longtermScore), currentScore: value.label}
+        let datapoint = {date: '28/07/2020', longTermScore: Math.round(value.longtermScore), currentScore: parseInt(value.label)}
         let data = this.state.data
         data.push(datapoint)
         this.setState({data: data})
