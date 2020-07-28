@@ -11,6 +11,7 @@ import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied'
 import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
+import MoodBadIcon from '@material-ui/icons/MoodBad';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
@@ -84,6 +85,10 @@ const styles = {
 }
 
 const customIcons = {
+        0: {
+          icon: <MoodBadIcon />,
+          label: 'Very Very Dissatisfied',
+        },
         1: {
           icon: <SentimentVeryDissatisfiedIcon />,
           label: 'Very Dissatisfied',

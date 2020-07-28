@@ -25,11 +25,13 @@ export class Journal extends React.Component<Props, State> {
       entities: [],
       weights: [],
       ratingValue: 3,
+      ratingLabel: '',
       dialogOpen: false,
       personalRatedScore: '',
       calculatedScore: '',
       calculatedText: '',
-      loadingReweight: false
+      loadingReweight: false,
+      loadingFetch: false
 
     }
   }
@@ -81,16 +83,18 @@ export class Journal extends React.Component<Props, State> {
   }
 
   fetchJournalScore = () => {
+    this.setState({loadingFetch: true})
      getSentimentLabel(this.state.journalEntry).then(
       (value) => { 
         if(value.label > 0) {
-          this.setState({calculatedText: "happy"})
+          this.setState({labelText: "happy"})
         } else if (value < -3) {
-          this.setState({calculatedText: "sad"})
+          this.setState({labelText: "sad"})
         } else {
-          this.setState({calculatedText: "crisis"})
+          this.setState({labelText: "crisis"})
         }
             this.setState({label: value.label, longtermScore: value.longtermScore})
+            this.setState({loadingFetch: false})
       },
       (error) => {
       }
@@ -110,14 +114,26 @@ export class Journal extends React.Component<Props, State> {
   }
 
   onRatingChange = (event, value) => {
-    if(value > 0) {
-      this.setState({ratingLabel: "happy"})
-    } else if (value < -3) {
-      this.setState({ratingLabel: "sad"})
-    } else {
-      this.setState({ratingLabel: "crisis"})
+    switch(value) {
+      case 0: 
+        this.setState({ratingLabel: "crisis"})
+        this.setState({ratingValue: -4})
+      case 1: 
+        this.setState({ratingLabel: "sad"})
+        this.setState({ratingValue: -3})
+      case 2: 
+        this.setState({ratingLabel: "sad"})
+        this.setState({ratingValue: -1})
+      case 3: 
+        this.setState({ratingLabel: "sad"})
+        this.setState({ratingValue: 0})
+      case 4: 
+        this.setState({ratingLabel: "happy"})
+        this.setState({ratingValue: 1})
+      case 5: 
+        this.setState({ratingLabel: "happy"})
+        this.setState({ratingValue: 3})
     }
-    this.setState({ratingValue: value})
   }
 
   openDialog = () => {
@@ -130,11 +146,11 @@ export class Journal extends React.Component<Props, State> {
     reweight(this.state.journalEntry, this.state.ratingValue).then(
       (value) => { 
         if(value.journalScore > 0) {
-          this.setState({labelText: "happy"})
+          this.setState({calculatedText: "happy"})
         } else if (value < -3) {
-          this.setState({labelText: "sad"})
+          this.setState({calculatedText: "sad"})
         } else {
-          this.setState({labelText: "crisis"})
+          this.setState({calculatedText: "crisis"})
         }
         this.setState({personalRatedScore: value.currentScore})
         this.setState({calculatedScore: value.journalScore})
@@ -185,7 +201,7 @@ export class Journal extends React.Component<Props, State> {
           <Paper elevation={0} variant="outlined" style={styles.analysis}>
             <List>
               <ListItem>
-                <ListItemText primary={"Sentiment Label: " + this.state.labelText} />
+                <ListItemText primary={!this.state.loadingFetch? ("Sentiment Label: " + this.state.labelText) : "Loading..."} />
               </ListItem>
               <ListItem>
                 <ListItemText primary={"Sentiment Entities: " + this.state.entities.toString()} />
@@ -202,7 +218,7 @@ export class Journal extends React.Component<Props, State> {
                 <ListItemText primary={!this.state.loadingReweight? ("Journal Calculated Score: " + this.state.calculatedText) : "Loading..."}/>
               </ListItem>
               <ListItem>
-                <ListItemText primary={!this.state.loadingReweight?  ("Personal Rated Score:" + this.state.ratingValue) : "Loading..."} />
+                <ListItemText primary={!this.state.loadingReweight?  ("Personal Rated Score:" + this.state.ratingLabel) : "Loading..."} />
               </ListItem>
             </List>
           </Paper>
